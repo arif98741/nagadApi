@@ -1,0 +1,33 @@
+{
+  "name": "arif98741/nagad-api",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ariful Islam",
+      "email": "arif98741@gmail.com",
+      "homepage": "https://phpdark.com",
+      "role": "Developer, Maintainer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "NagadApi\\": "src/"
+    }
+  },
+  "support": {
+    "email": "admin@phpdark.com"
+  },
+  "require": {
+    "php": "^5.5 || ^7.0"
+  },
+  "description": "This is Bangladeshi nagad payment gateway api development library. This can by used in your website, android or apple application ",
+  "keywords": [
+    "nagad",
+    "payment gateway",
+    "api"
+  ],
+  "require-dev": {
+    "filp/whoops": "^2.7"
+  }
+}
