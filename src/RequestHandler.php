@@ -49,7 +49,7 @@ class RequestHandler
      * @return array
      * @throws \JsonException
      */
-    public function fire($accountNumber = '01711428036')
+    public function fire($accountNumber = '')
     {
         $PostURL = $this->base->getBaseUrl() . "remote-payment-gateway-1.0/api/dfs/check-out/initialize/"
             . $this->base->getMerchantID() .
@@ -70,8 +70,7 @@ class RequestHandler
 
         $Result_Data = $this->helper->HttpPostMethod($PostURL, $PostData);
 
-        if ($Result_Data === NULL)
-        {
+        if ($Result_Data === NULL) {
             return $this->response = [
                 'status' => 'error',
                 'response' => [
@@ -80,9 +79,9 @@ class RequestHandler
                 ],
                 'request' => [
                     'environment' => $this->base->environment,
-                    'time' =>[
-                        'request time'=> date('Y-m-d H:i:s'),
-                        'timezone'=> $this->base->getTimezone()
+                    'time' => [
+                        'request time' => date('Y-m-d H:i:s'),
+                        'timezone' => $this->base->getTimezone()
                     ],
                     'url' => $PostURL,
                     'SensitiveData' => $SensitiveData,
@@ -137,9 +136,9 @@ class RequestHandler
                 ],
                 'request' => [
                     'environment' => $this->base->environment,
-                    'time' =>[
-                        'request time'=> date('Y-m-d H:i:s'),
-                        'timezone'=> $this->base->getTimezone()
+                    'time' => [
+                        'request time' => date('Y-m-d H:i:s'),
+                        'timezone' => $this->base->getTimezone()
                     ],
                     'url' => $PostURL,
                     'SensitiveData' => $SensitiveData,
