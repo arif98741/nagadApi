@@ -6,5 +6,6 @@
 *.composerLog
 *.zip
 vendor/
+logs/
 index.php
 
