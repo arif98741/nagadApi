@@ -1,4 +1,9 @@
 Example NagadApi Payment Request
+Setting and attaching in your project you should run
+<pre>
+                composer require arif98741/nagad-api
+</pre>
+
 <pre>
 
 use NagadApi\Base;
