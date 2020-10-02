@@ -19,6 +19,12 @@ namespace NagadApi;
 
 class Base
 {
+
+    /**
+     * environment
+     */
+    public $environment = 'development';
+
     /**
      * @var string
      */
@@ -41,32 +47,33 @@ class Base
     private $merchantID;
 
     /**
-     * @var Helper
-     */
-    private $helperObject;
-
-    /**
      * CallBack Url for merchant
      */
-    private $merchantCallback;
+    public $merchantCallback;
 
 
     /**
      * Base constructor
      * @param array $data
+     * @param string $environment
      */
-    public function __construct(array $data)
+    public function __construct(array $data, $environment = 'development')
     {
+
         $this->amount = $data['amount'];
         $this->invoice = $data['invoice'];
         $this->merchantID = $data['merchantID'];
-        $this->merchanCallback = $data['merchantCallback'];
-        if (array_key_exists('time_zone', $data)) {
-            date_default_timezone_set($data['time_zone']);
-        } else {
-            date_default_timezone_set($this->timezone);
+        $this->merchantCallback = $data['merchantCallback'];
+        $this->setTimeZone($data);
+        /**
+         * Before activating production environment be confirm that your system is ok and out of bug
+         * it is highly recommended to test your environment using development environment
+         */
+        if ($environment == 'production') {
+            $this->base_url = 'https://payment.mynagad.com:30000/';
+            $this->environment = $environment;
         }
-        $this->helperObject = new Helper();
+
     }
 
     /**
@@ -75,6 +82,18 @@ class Base
     public function getTimezone(): string
     {
         return $this->timezone;
+    }
+
+    /**
+     * @param $data
+     */
+    public function setTimeZone($data)
+    {
+        if (array_key_exists('time_zone', $data)) {
+            date_default_timezone_set($data['time_zone']);
+        } else {
+            date_default_timezone_set($this->timezone);
+        }
     }
 
     /**
@@ -109,14 +128,5 @@ class Base
         return $this->base_url;
     }
 
-    /**
-     * @param string $base_url
-     * @return Base
-     */
-    public function setBaseUrl(string $base_url): Base
-    {
-        $this->base_url = $base_url;
-        return $this;
-    }
 
 }
