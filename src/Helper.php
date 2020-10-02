@@ -89,7 +89,7 @@ class Helper extends Key
         curl_setopt($url, CURLOPT_SSL_VERIFYPEER, 0);
 
         $resultData = curl_exec($url);
-        $response = json_decode($resultData, true, 512, JSON_THROW_ON_ERROR);
+        $response = json_decode($resultData, true, 512);
         curl_close($url);
         return $response;
     }

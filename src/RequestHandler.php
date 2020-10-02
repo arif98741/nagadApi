@@ -70,6 +70,28 @@ class RequestHandler
 
         $Result_Data = $this->helper->HttpPostMethod($PostURL, $PostData);
 
+        if ($Result_Data === NULL)
+        {
+            return $this->response = [
+                'status' => 'error',
+                'response' => [
+                    'code' => 102,
+                    'message' => 'NULL Response. Check your internet connection',
+                ],
+                'request' => [
+                    'environment' => $this->base->environment,
+                    'time' =>[
+                        'request time'=> date('Y-m-d H:i:s'),
+                        'timezone'=> $this->base->getTimezone()
+                    ],
+                    'url' => $PostURL,
+                    'SensitiveData' => $SensitiveData,
+                    'PostData' => $PostData,
+                ],
+                'server' => Helper::serverDetails()
+            ];
+        }
+
         if (array_key_exists('sensitiveData', $Result_Data) && array_key_exists('signature', $Result_Data)) {
 
             if (!empty($Result_Data['sensitiveData']) && !empty($Result_Data['signature'])) {
