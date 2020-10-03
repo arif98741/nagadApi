@@ -47,7 +47,6 @@ class RequestHandler
     /**
      * @param string $accountNumber
      * @return array
-     * @throws \JsonException
      */
     public function fire($accountNumber = '')
     {
