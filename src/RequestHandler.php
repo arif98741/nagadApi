@@ -67,6 +67,7 @@ class RequestHandler
             'signature' => $this->helper->SignatureGenerate(json_encode($SensitiveData))
         );
 
+
         $Result_Data = $this->helper->HttpPostMethod($PostURL, $PostData);
 
         if ($Result_Data === NULL) {

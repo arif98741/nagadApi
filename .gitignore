@@ -8,4 +8,6 @@
 vendor/
 logs/
 index.php
+.env
+works
 
