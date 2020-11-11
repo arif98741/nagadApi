@@ -6,20 +6,24 @@ Setting and attaching in your project you should run
 
 <pre>
 
+<?php
+
 use NagadApi\Base;
 use NagadApi\Helper;
+use NagadApi\RequestHandler;
 
 require 'vendor/autoload.php';
 
 $nagad = new Base([
     'amount' => 100,
-    'invoice' => Helper::generateInvoiceTest('', 15, true),
-    'merchantID' => '683002007104225',
-    'merchantCallback' => 'https://phpdark.com/id=4',
-    'time_zone' => 'Asia/Dhaka',
-], 'development');
+    'invoice' => Helper::generateFakeInvoice('', 15, true),
+    'merchantCallback' => 'https://phpdark.com/payment/success/id=4',
+]);
 
-
-$Request = new \NagadApi\RequestHandler($nagad);
-$response = $Request->fire('12345678901');
+$request = new RequestHandler($nagad);
+$respnose = $request->fire();
+echo '<pre>';
+print_r($respnose);
+echo '</pre>';
+exit;
 </pre>

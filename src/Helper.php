@@ -13,20 +13,29 @@ class Helper extends Key
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**
      * Generate Random String | reference stackoverflow.com
      * @param int $length
+     * @param string $prefix
+     * @param string $suffix
      * @return string
      */
-    public static function generateRandomString($length = 40)
+    public static function generateRandomString($length = 40, $prefix = '', $suffix = '')
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        if (!empty($prefix)) {
+            $randomString = $prefix . $randomString;
+        }
+        if (!empty($suffix)) {
+            $randomString .= $suffix;
         }
         return $randomString;
     }
@@ -39,11 +48,11 @@ class Helper extends Key
      */
     function EncryptDataWithPublicKey($data)
     {
-        //$pgPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjBH1pFNSSRKPuMcNxmU5jZ1x8K9LPFM4XSu11m7uCfLUSE4SEjL30w3ockFvwAcuJffCUwtSpbjr34cSTD7EFG1Jqk9Gg0fQCKvPaU54jjMJoP2toR9fGmQV7y9fz31UVxSk97AqWZZLJBT2lmv76AgpVV0k0xtb/0VIv8pd/j6TIz9SFfsTQOugHkhyRzzhvZisiKzOAAWNX8RMpG+iqQi4p9W9VrmmiCfFDmLFnMrwhncnMsvlXB8QSJCq2irrx3HG0SJJCbS5+atz+E1iqO8QaPJ05snxv82Mf4NlZ4gZK0Pq/VvJ20lSkR+0nk+s/v3BgIyle78wjZP1vWLU4wIDAQAB";
-        $public_key = "-----BEGIN PUBLIC KEY-----\n" . $this->getPgPublicKey() . "\n-----END PUBLIC KEY-----";
-        $keyResource = openssl_get_publickey($public_key);
-        openssl_public_encrypt($data, $crypttext, $keyResource);
-        return base64_encode($crypttext);
+
+        $publicKey = "-----BEGIN PUBLIC KEY-----\n" . $this->getPgPublicKey() . "\n-----END PUBLIC KEY-----";
+        $keyResource = openssl_get_publickey($publicKey);
+        openssl_public_encrypt($data, $cryptoText, $keyResource);
+        return base64_encode($cryptoText);
     }
 
     /**
@@ -113,13 +122,12 @@ class Helper extends Key
 
 
     /**
-     * Get Client IP | Example : Public IP: 123.93.86.3,987.39.33
-     * (these example ips are for just no purpose)
+     * Get Client IP | Example : Public IP: 121.23.48.96. 185.96.85.256
+     * (above ips are for just example)
      * @return mixed|string
      */
     public function getClientIP()
     {
-        $ipaddress = '';
         if (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
         } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -150,9 +158,6 @@ class Helper extends Key
     }
 
 
-
-
-
     /**
      * Generate Random Invoice For Testing Purpose
      * You Can also use it for making production
@@ -161,9 +166,9 @@ class Helper extends Key
      * @param bool $capitalize
      * @return string
      */
-    public static function generateInvoiceTest($prefix, $length = 20, $capitalize = false)
+    public static function generateFakeInvoice($length = 20, $capitalize = false, $prefix = '', $suffix = '')
     {
-        $invoice = $prefix . self::generateRandomString($length);
+        $invoice = $prefix . self::generateRandomString($length) . $suffix;
         if ($capitalize === true) {
             $invoice = strtoupper($invoice);
         }
@@ -197,22 +202,15 @@ class Helper extends Key
      * Generate Server Details And Return Response
      * @return array
      */
-    public static function serverDetails(): array
+    public static function serverDetails()
     {
         return [
+            'base' => $_SERVER['SERVER_ADDR'],
             'ip' => $_SERVER['REMOTE_ADDR'],
             'port' => $_SERVER['REMOTE_PORT'],
-            'user agent' => $_SERVER['HTTP_USER_AGENT']
+            'request_url' => $_SERVER['REQUEST_URI'],
+            'user agent' => $_SERVER['HTTP_USER_AGENT'],
         ];
     }
 
-    public function  test()
-    {
-        $FIELD_enableCountdownTimer = '';
-        $product = '';
-       if(isset($FIELD_enableCountdownTimer) && date('Y-m-d') > $product.specific_prices.to){
-
-       }
-
-    }
 }

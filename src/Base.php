@@ -17,6 +17,14 @@
 namespace NagadApi;
 
 
+use NagadApi\lib\Key;
+
+/**
+ * Class Base
+ * This is the decision maker where request will go, generate url and also
+ * decide the environment according to .env data
+ * @package NagadApi
+ */
 class Base
 {
 
@@ -32,7 +40,7 @@ class Base
     /**
      * @var string
      */
-    private $timezone = 'Asia/Dhaka';
+    private $timezone;
     /**
      * @var mixed
      */
@@ -47,6 +55,11 @@ class Base
     private $merchantID;
 
     /**
+     * public key object
+     */
+    public $keyObject;
+
+    /**
      * CallBack Url for merchant
      */
     public $merchantCallback;
@@ -54,24 +67,25 @@ class Base
 
     /**
      * Base constructor
-     * @param array $data
-     * @param string $environment
+     * @param array $params
      */
-    public function __construct(array $data, $environment = 'development')
+    public function __construct(array $params)
     {
+        $this->keyObject = new Key();
 
-        $this->amount = $data['amount'];
-        $this->invoice = $data['invoice'];
-        $this->merchantID = $data['merchantID'];
-        $this->merchantCallback = $data['merchantCallback'];
-        $this->setTimeZone($data);
+        $this->amount = $params['amount'];
+        $this->invoice = $params['invoice'];
+        $this->merchantID = $this->keyObject->getAppMerchantID();
+        $this->merchantCallback = $params['merchantCallback'];
+        $this->setTimeZone($this->keyObject->getTimeZone());
+
         /**
          * Before activating production environment be confirm that your system is ok and out of bug
          * it is highly recommended to test your environment using development environment
          */
-        if ($environment == 'production') {
+        if ($this->keyObject->getAppEnv() == 'production') {
             $this->base_url = 'https://payment.mynagad.com:30000/';
-            $this->environment = $environment;
+            $this->environment = $this->keyObject->getAppEnv();
         }
 
     }
@@ -79,20 +93,20 @@ class Base
     /**
      * @return string
      */
-    public function getTimezone(): string
+    public function getTimezone()
     {
         return $this->timezone;
     }
 
     /**
-     * @param $data
+     * @param $timeZone
      */
-    public function setTimeZone($data)
+    public function setTimeZone($timeZone)
     {
-        if (array_key_exists('time_zone', $data)) {
-            date_default_timezone_set($data['time_zone']);
+        if (!empty($timeZone)) {
+            date_default_timezone_set($timeZone);
         } else {
-            date_default_timezone_set($this->timezone);
+            date_default_timezone_set('Asia/Dhaka');
         }
     }
 
@@ -123,10 +137,14 @@ class Base
     /**
      * @return string
      */
-    public function getBaseUrl(): string
+    public function getBaseUrl()
     {
         return $this->base_url;
     }
 
+    public function getVariables()
+    {
+        return $this;
+    }
 
 }

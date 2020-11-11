@@ -16,7 +16,13 @@
 
 namespace NagadApi;
 
-
+/**
+ * This is the main performer that means request handler for entire nagadApi
+ * This class is doing extra-ordinary job according to request type.
+ * It also generates api response for viewing in monitor screen.
+ * Class RequestHandler
+ * @package NagadApi
+ */
 class RequestHandler
 {
     public $response;
@@ -24,15 +30,18 @@ class RequestHandler
     /**
      * @var
      */
-    private $helper;
+    private $apiUrl = 'remote-payment-gateway-1.0/api/dfs/check-out/initialize/';
 
+    /**
+     * @var
+     */
+    private $helper;
 
     /**
      * for using
      * @var
      */
     private $base;
-
 
     /**
      * RequestHandler constructor.
@@ -45,32 +54,35 @@ class RequestHandler
     }
 
     /**
-     * @param string $accountNumber
+     * Fire request to nagad api
      * @return array
      */
-    public function fire($accountNumber = '')
+    public function fire()
     {
-        $PostURL = $this->base->getBaseUrl() . "remote-payment-gateway-1.0/api/dfs/check-out/initialize/"
-            . $this->base->getMerchantID() .
-            "/" . $this->base->getInvoice();
-        $SensitiveData = array(
-            'merchantId' => $this->base->getMerchantID(),
+
+        $postUrl = $this->base->getBaseUrl() . $this->apiUrl;
+
+        $this->base->getMerchantID() .
+        "/" . $this->base->getInvoice();
+
+        $sensitiveData = array(
+            'merchantId' => $this->base->keyObject->getAppMerchantID(),
             'datetime' => Date('YmdHis'),
             'orderId' => $this->base->getInvoice(),
-            'challenge' => Helper::generateRandomString(40)
+            'challenge' => Helper::generateRandomString(40, 'you', 'me')
         );
 
-        $PostData = array(
-            'accountNumber' => $accountNumber, //optional
+        $postData = array(
+            'accountNumber' => $this->base->keyObject->getAppAccount(), //optional
             'dateTime' => Date('YmdHis'),
-            'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($SensitiveData)),
-            'signature' => $this->helper->SignatureGenerate(json_encode($SensitiveData))
+            'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData)),
+            'signature' => $this->helper->SignatureGenerate(json_encode($sensitiveData))
         );
 
 
-        $Result_Data = $this->helper->HttpPostMethod($PostURL, $PostData);
+        $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
 
-        if ($Result_Data === NULL) {
+        if ($resultData === NULL) {
             return $this->response = [
                 'status' => 'error',
                 'response' => [
@@ -83,18 +95,24 @@ class RequestHandler
                         'request time' => date('Y-m-d H:i:s'),
                         'timezone' => $this->base->getTimezone()
                     ],
-                    'url' => $PostURL,
-                    'SensitiveData' => $SensitiveData,
-                    'PostData' => $PostData,
+                    'url' => [
+                        'base_url' => $this->base->getBaseUrl(),
+                        'api_url' => $this->apiUrl
+                    ],
+                    'data' => [
+                        'sensitiveData' => $sensitiveData,
+                        'postData' => $postData
+                    ],
+
                 ],
                 'server' => Helper::serverDetails()
             ];
         }
 
-        if (array_key_exists('sensitiveData', $Result_Data) && array_key_exists('signature', $Result_Data)) {
+        if (array_key_exists('sensitiveData', $resultData) && array_key_exists('signature', $resultData)) {
 
-            if (!empty($Result_Data['sensitiveData']) && !empty($Result_Data['signature'])) {
-                $PlainResponse = json_decode($this->helper->DecryptDataWithPrivateKey($Result_Data['sensitiveData']), true);
+            if (!empty($resultData['sensitiveData']) && !empty($resultData['signature'])) {
+                $PlainResponse = json_decode($this->helper->DecryptDataWithPrivateKey($resultData['sensitiveData']), true);
                 if (isset($PlainResponse['paymentReferenceId']) && isset($PlainResponse['challenge'])) {
 
                     $paymentReferenceId = $PlainResponse['paymentReferenceId'];
@@ -103,7 +121,7 @@ class RequestHandler
                     $SensitiveDataOrder = array(
                         'merchantId' => $this->base->getMerchantID(),
                         'orderId' => $this->base->getInvoice(),
-                        'currencyCode' => '050',
+                        'currencyCode' => $this->base->keyObject->getCurrencyCode(),
                         'amount' => $this->base->getAmount(),
                         'challenge' => $challenge
                     );
@@ -121,6 +139,7 @@ class RequestHandler
                     if ($Result_Data_Order['status'] == "Success") {
                         $url = json_encode($Result_Data_Order['callBackUrl']);
                         echo "<script>window.open($url, '_self')</script>";
+                        exit;
                     } else {
                         echo json_encode($Result_Data_Order);
                     }
@@ -132,7 +151,7 @@ class RequestHandler
                 'status' => 'error',
                 'response' => [
                     'code' => 101,
-                    'message' => $Result_Data['message'],
+                    'message' => $resultData['message'],
                 ],
                 'request' => [
                     'environment' => $this->base->environment,
@@ -140,9 +159,14 @@ class RequestHandler
                         'request time' => date('Y-m-d H:i:s'),
                         'timezone' => $this->base->getTimezone()
                     ],
-                    'url' => $PostURL,
-                    'SensitiveData' => $SensitiveData,
-                    'PostData' => $PostData,
+                    'url' => [
+                        'base_url' => $this->base->getBaseUrl(),
+                        'api_url' => $this->apiUrl
+                    ],
+                    'data' => [
+                        'sensitiveData' => $sensitiveData,
+                        'postData' => $postData
+                    ]
                 ],
                 'server' => Helper::serverDetails()
             ];
