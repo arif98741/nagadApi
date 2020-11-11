@@ -18,7 +18,7 @@ namespace NagadApi\lib;
 
 use Dotenv\Dotenv;
 
-define('ABSPATH', __DIR__ . '/../../');
+define('ABSPATH', __DIR__ . '/../../../../../');
 
 $dotenv = Dotenv::createImmutable(ABSPATH);
 $dotenv->load();
