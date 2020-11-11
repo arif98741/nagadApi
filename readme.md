@@ -6,7 +6,6 @@ Setting and attaching in your project you should run
 
 <pre>
 
-<?php
 
 use NagadApi\Base;
 use NagadApi\Helper;
