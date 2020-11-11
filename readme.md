@@ -62,6 +62,8 @@ echo '</pre>';
 1. Need sandbox details for sandbox testing
 2. Need production details for production final
 3. Need testing before going to live
-4. If you have any question/query then email me @ arif98741@gmail.com
+4. If you have any question/query then email me arif98741@gmail.com
+5. Do Code, Be Crazy
+
 
 
