@@ -1,11 +1,11 @@
 For using nagad-api in your application just follow below code.
-1. Copy all your data from .env.example to .env and change necessary details. 
-    NAGAD_APP_ENV                     = development  // dev: development, live: production
-    NAGAD_APP_LOG                     = 1 //it will generate error log
-    NAGAD_APP_ACCOUNT                 = //get from nagad. it is usually mobile no
-    NAGAD_APP_MERCHANTID              = //get from nagad
-    NAGAD_APP_MERCHANT_PRIVATE_KEY    = //get from nagad
-    NAGAD_APP_MERCHANT_PG_PUBLIC_KEY  = //get from nagad
+1. Copy all your data from .env.example to .env and change necessary details. <br>
+    NAGAD_APP_ENV                     = development  // dev: development, live: production <br>
+    NAGAD_APP_LOG                     = 1 //it will generate error log<br>
+    NAGAD_APP_ACCOUNT                 = //get from nagad. it is usually mobile no<br>
+    NAGAD_APP_MERCHANTID              = //get from nagad<br>
+    NAGAD_APP_MERCHANT_PRIVATE_KEY    = //get from nagad<br>
+    NAGAD_APP_MERCHANT_PG_PUBLIC_KEY  = //get from nagad<br>
     NAGAD_APP_TIMEZONE                = Asia/Dhaka
 
 <pre>
