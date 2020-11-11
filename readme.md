@@ -7,12 +7,10 @@
 ```bash
 composer require arif98741/nagad-api
 ```
-
-# Stage 1
-
-
 # env setup
-copy all necessary data and replace using nagad provided data
+copy all necessary data to your <strong>.env</strong> file and replace using provided 
+credentials by Nagad. Below given data are dummy and those have
+no meaning at all. 
 
 ```bash
 
@@ -25,9 +23,10 @@ NAGAD_APP_MERCHANT_PG_PUBLIC_KEY  =
 NAGAD_APP_TIMEZONE                =Asia/Dhaka
 ```
 
-# Usage
+# Example Code
 
 ```php
+
 use NagadApi\Base;
 use NagadApi\Helper;
 use NagadApi\RequestHandler;
@@ -44,10 +43,20 @@ $response = $request->fire();
 echo '<pre>';
 print_r($response); //see response as array
 echo '</pre>';
-exit;
-
 
 ```
+#####Maintainer
+<ul>
+    <li><a href="https://github.com/arif98741">Ariful Islam</a></li>
+</ul>
+
+
+#####Contributors
+<ul>
+    <li><a href="https://github.com/tusharkhan">Tushar Khan</a></li>
+</ul>
+
+
 
 # Information:
 1. Need sandbox details for sandbox testing
