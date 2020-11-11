@@ -24,7 +24,7 @@
   "require": {
     "php": "^5.5 || ^7.0",
     "ext-curl": "*",
-    "vlucas/phpdotenv": "^3.2"
+    "vlucas/phpdotenv": "^3.5"
   },
   "description": "This is Bangladeshi nagad payment gateway api development library. This can by used in your website, android or apple application ",
   "keywords": [
