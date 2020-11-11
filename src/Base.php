@@ -64,7 +64,6 @@ class Base
      */
     public $merchantCallback;
 
-
     /**
      * Base constructor
      * @param array $params
@@ -104,10 +103,11 @@ class Base
     public function setTimeZone($timeZone)
     {
         if (!empty($timeZone)) {
-            date_default_timezone_set($timeZone);
+            $this->timezone = $timeZone;
         } else {
-            date_default_timezone_set('Asia/Dhaka');
+            $this->timezone = 'Asia/Dhaka';
         }
+
     }
 
     /**
