@@ -1,4 +1,4 @@
-<p align="center" ><img src="https://raw.githubusercontent.com/code4mk/lara-nagad/master/nagad%20payment.png"></p>
+<p align="center" ><img src="https://github.com/arif98741/nagadApi/blob/master/file/nagad-logo.png"></p>
 
 # NagadApi
 
