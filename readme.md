@@ -7,7 +7,7 @@
 ```bash
 composer require arif98741/nagad-api
 ```
-# env setup
+# .env setup
 copy all necessary data to your <strong>.env</strong> file and replace using provided 
 credentials by Nagad. Below given data are dummy and those have
 no meaning at all. 
