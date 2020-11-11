@@ -59,11 +59,9 @@ class RequestHandler
      */
     public function fire()
     {
-
-        $postUrl = $this->base->getBaseUrl() . $this->apiUrl;
-
-        $this->base->getMerchantID() .
-        "/" . $this->base->getInvoice();
+        $postUrl = $this->base->getBaseUrl() . $this->apiUrl
+            . $this->base->getMerchantID() .
+            "/" . $this->base->getInvoice();
 
         $sensitiveData = array(
             'merchantId' => $this->base->keyObject->getAppMerchantID(),
@@ -78,7 +76,6 @@ class RequestHandler
             'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData)),
             'signature' => $this->helper->SignatureGenerate(json_encode($sensitiveData))
         );
-
 
         $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
 
