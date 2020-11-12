@@ -70,6 +70,7 @@ class Base
      */
     public function __construct(array $params)
     {
+
         $this->keyObject = new Key();
 
         $this->amount = $params['amount'];
@@ -77,6 +78,7 @@ class Base
         $this->merchantID = $this->keyObject->getAppMerchantID();
         $this->merchantCallback = $params['merchantCallback'];
         $this->setTimeZone($this->keyObject->getTimeZone());
+        date_default_timezone_set($this->timezone);
 
         /**
          * Before activating production environment be confirm that your system is ok and out of bug
