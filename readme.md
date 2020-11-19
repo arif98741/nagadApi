@@ -64,6 +64,9 @@ echo '</pre>';
 3. Need testing before going to live
 4. If you have any question/query then email me arif98741@gmail.com
 5. Do Code, Be Crazy
+<br>
+##//If you find any kind of issues or bug you are highly encuraged to report. For reporting use issues.
+For can also push pull request. For pull request you should use dev branch. Because our master branch is serving at this moment for usage.
 
 
 
