@@ -1,4 +1,4 @@
-<p align="center" ><img src="https://github.com/arif98741/nagadApi/blob/master/file/nagad-logo.png"></p>
+<p align="center" ><img style="width: 80%; height: 80%" src="https://github.com/arif98741/nagadApi/blob/master/file/nagad-logo.png"></p>
 
 # NagadApi
 
