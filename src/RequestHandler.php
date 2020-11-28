@@ -133,7 +133,12 @@ class RequestHandler
                         . $paymentReferenceId;
 
                     $Result_Data_Order = $this->helper->HttpPostMethod($OrderSubmitUrl, $PostDataOrder);
+
                     if ($Result_Data_Order['status'] == "Success") {
+
+
+                        //return $this->helper->successResponse($Result_Data_Order['callBackUrl']);
+
                         $url = json_encode($Result_Data_Order['callBackUrl']);
                         echo "<script>window.open($url, '_self')</script>";
                         exit;

@@ -213,4 +213,17 @@ class Helper extends Key
         ];
     }
 
+    /**
+     * This is for formatting and getting returning response data from url;
+     * @param $response
+     * @return mixed
+     */
+    public function successResponse($response)
+    {
+        // $response = 'https://phpdark.com/payment/success/id=4/?merchant=683002007104225&order_id=EBSXGJ5OYQCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
+        $parts = parse_url($response);
+        parse_str($parts['query'], $query);
+        return $query;
+    }
+
 }
