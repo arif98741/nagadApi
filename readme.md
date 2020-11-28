@@ -50,6 +50,8 @@ $response = $request->fire();
 $helper = new Helper();
 $response = 'https://phpdark.com/payment/success/id=4/?merchant=6878544664000&order_id=EBSXGJ5GHTDRCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODGJYSLKJYYYFGFMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQhjfgfyur874HDGFHGLewhfyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
 $responseArray = $helper->successResponse($response);
+
+//you will get array like this
 Array
 (
     [merchant] => 6878544664000
