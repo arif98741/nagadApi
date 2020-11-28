@@ -40,9 +40,9 @@ $nagad = new Base([
 ]);
 $request = new RequestHandler($nagad);
 $response = $request->fire();
-echo '<pre>';
-print_r($response); //see response as array
-echo '</pre>';
+//you will be redirected to your marchantCallbackUrl after successful payment process
+
+
 
 //get help from below method for extracting response data from url.  Put your repsonse string to below method successReponse after
 //making object of Helper class
