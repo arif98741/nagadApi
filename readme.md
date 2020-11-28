@@ -48,7 +48,7 @@ $response = $request->fire();
 
 ##example
 $helper = new Helper();
-$response = 'https://phpdark.com/payment/success/id=4/?merchant=683002007104225&order_id=EBSXGJ5OYQCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
+$response = 'https://phpdark.com/payment/success/id=4/?merchant=6878544664000&order_id=EBSXGJ5GHTDRCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODGJYSLKJYYYFGFMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQhjfgfyur874HDGFHGLewhfyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
 $responseArray = $helper->successResponse($response);
 Array
 (
@@ -59,7 +59,7 @@ Array
     [status_code] => 00_0000_000
     [message] => Successful Transaction
     [payment_dt] => 20201129002747
-    [issuer_payment_ref] => MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQ874HDGFHGLewhfyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl
+    [issuer_payment_ref] => MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQhjfgfyur874HDGFHGLewhfyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl
 )
 ```
 #####Maintainer
