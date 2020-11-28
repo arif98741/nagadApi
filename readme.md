@@ -44,8 +44,9 @@ $response = $request->fire();
 
 
 
-//get help from below method for extracting response data from url.  Put your repsonse string to below method successReponse after
-//making object of Helper class
+//get help from below method for extracting response data from url.  Put your response string to below method successReponse() aftermaking object of Helper class
+
+##example
 $helper = new Helper();
 $response = 'https://phpdark.com/payment/success/id=4/?merchant=683002007104225&order_id=EBSXGJ5OYQCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
 $responseArray = $helper->successResponse($response);
