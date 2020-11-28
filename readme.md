@@ -1,4 +1,4 @@
-<p align="center" ><img src="https://github.com/arif98741/nagadApi/blob/master/file/nagad-logo.png"></p>
+<p align="center" ><img style="width: 400px; height: 300px;" src="https://github.com/arif98741/nagadApi/blob/master/file/nagad-logo.png"></p>
 
 # NagadApi
 
@@ -40,10 +40,27 @@ $nagad = new Base([
 ]);
 $request = new RequestHandler($nagad);
 $response = $request->fire();
-echo '<pre>';
-print_r($response); //see response as array
-echo '</pre>';
+//you will be redirected to your marchantCallbackUrl after successful payment process
 
+
+
+//get help from below method for extracting response data from url.  Put your response string to below method successReponse() aftermaking object of Helper class
+
+##example
+$helper = new Helper();
+$response = 'https://phpdark.com/payment/success/id=4/?merchant=6878544664000&order_id=EBSXGJ5GHTDRCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODGJYSLKJYYYFGFMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQhjfgfyur874HDGFHGLewhfyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
+$responseArray = $helper->successResponse($response);
+Array
+(
+    [merchant] => 6878544664000
+    [order_id] => EBSXGJ5GHTDRCRO7D
+    [payment_ref_id] => MTEyOTAwMjY1NDMxNi42ODGJYSLKJYYYFGFMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl
+    [status] => Success
+    [status_code] => 00_0000_000
+    [message] => Successful Transaction
+    [payment_dt] => 20201129002747
+    [issuer_payment_ref] => MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQhjfgfyur874HDGFHGLewhfyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl
+)
 ```
 #####Maintainer
 <ul>
@@ -64,6 +81,9 @@ echo '</pre>';
 3. Need testing before going to live
 4. If you have any question/query then email me arif98741@gmail.com
 5. Do Code, Be Crazy
+<br>
+##//If you find any kind of issues or bug you are highly encuraged to report. For reporting use issues.
+For can also push pull request. For pull request you should use dev branch. Because our master branch is serving at this moment for usage.
 
 
 
