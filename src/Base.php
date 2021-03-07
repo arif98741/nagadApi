@@ -66,12 +66,13 @@ class Base
 
     /**
      * Base constructor
-     * @param array $params
+     * @param $config
+     * @param $params
      */
-    public function __construct(array $params)
+    public function __construct($config, $params)
     {
 
-        $this->keyObject = new Key();
+        $this->keyObject = new Key($config);
 
         $this->amount = $params['amount'];
         $this->invoice = $params['invoice'];
@@ -83,12 +84,23 @@ class Base
         /**
          * Before activating production environment be confirm that your system is ok and out of bug
          * it is highly recommended to test your environment using development environment
+         * your ip,domain and callback_url should be whitelisted in Nagad end
          */
         if ($this->keyObject->getAppEnv() == 'production') {
             $this->base_url = 'https://payment.mynagad.com:30000/';
             $this->environment = $this->keyObject->getAppEnv();
         }
 
+    }
+
+    /**
+     * Final Send Request to Nagad
+     * @param Base $base
+     */
+    public function payNow(Base $base)
+    {
+        $request = new RequestHandler($base);
+        $request->sendRequest();
     }
 
     /**
@@ -144,6 +156,9 @@ class Base
         return $this->base_url;
     }
 
+    /**
+     * @return $this
+     */
     public function getVariables()
     {
         return $this;
