@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NagadApi;
+namespace NagadApi\Exception;
 
 
 class ExceptionHandler extends \Exception
