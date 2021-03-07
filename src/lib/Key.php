@@ -18,10 +18,6 @@ namespace NagadApi\lib;
 
 use Dotenv\Dotenv;
 
-define('NAGAD_ABSPATH', __DIR__ . '/../../');
-$dotenv = Dotenv::createImmutable(NAGAD_ABSPATH);
-$dotenv->load();
-
 
 /**
  * Class Key
@@ -43,9 +39,26 @@ class Key
 
     //private $merchantID = '';
 
-    public function __construct()
+    /**
+     * Key constructor.
+     * @param $config
+     */
+    public function __construct($config)
     {
-        $envData = self::generateEnv();
+        if (is_object($config)) {
+
+            $data['NAGAD_APP_ENV'] = $config->appEnv;
+            $data['NAGAD_APP_ACCOUNT'] = $config->appAccount;
+            $data['NAGAD_APP_MERCHANTID'] = $config->appMerchantID;
+            $data['NAGAD_APP_MERCHANT_PRIVATE_KEY'] = $config->merchantPrivateKey;
+            $data['NAGAD_APP_MERCHANT_PG_PUBLIC_KEY'] = $config->pgPublicKey;
+            $data['NAGAD_APP_TIMEZONE'] = $config->timeZone;
+            $envData = self::generateEnv($data);
+
+        } else {
+
+            $envData = self::generateEnv($config);
+        }
 
         $this->appEnv = $envData['NAGAD_APP_ENV'];
         $this->appAccount = $envData['NAGAD_APP_ACCOUNT'];
@@ -53,15 +66,17 @@ class Key
         $this->merchantPrivateKey = $envData['NAGAD_APP_MERCHANT_PRIVATE_KEY'];
         $this->pgPublicKey = $envData['NAGAD_APP_MERCHANT_PG_PUBLIC_KEY'];
         $this->timeZone = $envData['NAGAD_APP_TIMEZONE'];
+
     }
 
     /**
      * Return all data inside .env file as array
+     * @param $config
      * @return array
      */
-    private function generateEnv()
+    private function generateEnv($config)
     {
-        return $_ENV;
+        return $config;
     }
 
     public function getVariables()
@@ -172,6 +187,5 @@ class Key
     {
         $this->timeZone = $timeZone;
     }
-
 
 }

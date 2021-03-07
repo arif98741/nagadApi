@@ -35,6 +35,11 @@ class RequestHandler
     /**
      * @var
      */
+    private $initUrl;
+
+    /**
+     * @var
+     */
     private $helper;
 
     /**
@@ -50,14 +55,14 @@ class RequestHandler
     public function __construct(Base $base)
     {
         $this->base = $base;
-        $this->helper = new Helper();
+        $this->helper = new Helper($this->base->keyObject);
     }
 
     /**
      * Fire request to nagad api
      * @return array
      */
-    public function fire()
+    public function sendRequest()
     {
         $postUrl = $this->base->getBaseUrl() . $this->apiUrl
             . $this->base->getMerchantID() .
@@ -78,6 +83,8 @@ class RequestHandler
         );
 
         $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
+        var_dump($resultData);
+        $this->initUrl = $postUrl;
 
         if ($resultData === NULL) {
             return $this->response = [
@@ -106,6 +113,7 @@ class RequestHandler
             ];
         }
 
+        //check existance of sensitiveData and signature
         if (array_key_exists('sensitiveData', $resultData) && array_key_exists('signature', $resultData)) {
 
             if (!empty($resultData['sensitiveData']) && !empty($resultData['signature'])) {

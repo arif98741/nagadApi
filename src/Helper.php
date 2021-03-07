@@ -1,6 +1,4 @@
 <?php
-
-
 namespace NagadApi;
 
 
@@ -10,10 +8,11 @@ class Helper extends Key
 {
     /**
      * Helper constructor.
+     * @param $config
      */
-    public function __construct()
+    public function __construct($config)
     {
-        parent::__construct();
+        parent::__construct($config);
     }
 
     /**
@@ -98,28 +97,6 @@ class Helper extends Key
         curl_close($url);
         return $response;
     }
-
-    /**
-     * Http Get Method
-     * @param $url
-     * @return bool|string
-     */
-    public function HttpGetMethod($url)
-    {
-        $ch = curl_init();
-        $timeout = 10;
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/0 (Windows; U; Windows NT 0; zh-CN; rv:3)");
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $file_contents = curl_exec($ch);
-        curl_close($ch);
-        return $file_contents;
-    }
-
 
     /**
      * Get Client IP | Example : Public IP: 121.23.48.96. 185.96.85.256
