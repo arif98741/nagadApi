@@ -83,7 +83,6 @@ class RequestHandler
         );
 
         $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
-        var_dump($resultData);
         $this->initUrl = $postUrl;
 
         if ($resultData === NULL) {
