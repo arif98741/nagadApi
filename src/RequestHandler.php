@@ -89,7 +89,7 @@ class RequestHandler
         if (is_array($resultData) && array_key_exists('reason', $resultData)) {
 
             return $resultData;
-           
+
         } else if ($resultData === NULL) {
             return $this->response = [
                 'status' => 'error',
@@ -145,12 +145,17 @@ class RequestHandler
                         . $paymentReferenceId;
 
                     $Result_Data_Order = $this->helper->HttpPostMethod($OrderSubmitUrl, $PostDataOrder);
-                    if ($Result_Data_Order['status'] == "Success") {
-                        $url = json_encode($Result_Data_Order['callBackUrl']);
-                        echo "<script>window.open($url, '_self')</script>";
-                        exit;
+                    if (array_key_exists('status', $Result_Data_Order)) {
+
+                        if ($Result_Data_Order['status'] == "Success") {
+                            $url = json_encode($Result_Data_Order['callBackUrl']);
+                            echo "<script>window.open($url, '_self')</script>";
+                            exit;
+                        } else {
+                            echo json_encode($Result_Data_Order);
+                        }
                     } else {
-                        echo json_encode($Result_Data_Order);
+                        return $Result_Data_Order;
                     }
 
                 }
