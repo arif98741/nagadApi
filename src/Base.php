@@ -71,9 +71,7 @@ class Base
      */
     public function __construct($config, $params)
     {
-
         $this->keyObject = new Key($config);
-
         $this->amount = $params['amount'];
         $this->invoice = $params['invoice'];
         $this->merchantID = $this->keyObject->getAppMerchantID();
@@ -96,11 +94,13 @@ class Base
     /**
      * Final Send Request to Nagad
      * @param Base $base
+     * @return array
+     * @throws \Exception
      */
     public function payNow(Base $base)
     {
         $request = new RequestHandler($base);
-        $request->sendRequest();
+        return $request->sendRequest();
     }
 
     /**

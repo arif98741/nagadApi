@@ -16,6 +16,8 @@
 
 namespace NagadApi;
 
+use NagadApi\Exception\ExceptionHandler;
+
 /**
  * This is the main performer that means request handler for entire nagadApi
  * This class is doing extra-ordinary job according to request type.
@@ -61,6 +63,7 @@ class RequestHandler
     /**
      * Fire request to nagad api
      * @return array
+     * @throws \Exception
      */
     public function sendRequest()
     {
@@ -81,11 +84,13 @@ class RequestHandler
             'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData)),
             'signature' => $this->helper->SignatureGenerate(json_encode($sensitiveData))
         );
-
         $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
         $this->initUrl = $postUrl;
+        if (is_array($resultData) && array_key_exists('reason', $resultData)) {
 
-        if ($resultData === NULL) {
+            return $resultData;
+           
+        } else if ($resultData === NULL) {
             return $this->response = [
                 'status' => 'error',
                 'response' => [
@@ -136,7 +141,7 @@ class RequestHandler
                         'merchantCallbackURL' => $this->base->merchantCallback,
 
                     );
-                    $OrderSubmitUrl = $this->base->getBaseUrl() . "remote-payment-gateway-1.0/api/dfs/check-out/complete/"
+                    $OrderSubmitUrl = $this->base->getBaseUrl() . "api/dfs/check-out/complete/"
                         . $paymentReferenceId;
 
                     $Result_Data_Order = $this->helper->HttpPostMethod($OrderSubmitUrl, $PostDataOrder);
@@ -177,4 +182,5 @@ class RequestHandler
         }
 
     }
+
 }
