@@ -36,7 +36,7 @@ class Base
     /**
      * @var string
      */
-    private $base_url = 'http://sandbox.mynagad.com:10080/';
+    private $base_url = 'http://sandbox.mynagad.com:10080/remote-payment-gateway-1.0/';
     /**
      * @var string
      */
@@ -87,7 +87,7 @@ class Base
          * your ip,domain and callback_url should be whitelisted in Nagad end
          */
         if ($this->keyObject->getAppEnv() == 'production') {
-            $this->base_url = 'https://payment.mynagad.com:30000/';
+            $this->base_url = 'https://api.mynagad.com/';
             $this->environment = $this->keyObject->getAppEnv();
         }
 

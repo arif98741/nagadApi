@@ -30,7 +30,7 @@ class RequestHandler
     /**
      * @var
      */
-    private $apiUrl = 'remote-payment-gateway-1.0/api/dfs/check-out/initialize/';
+    private $apiUrl = 'api/dfs/check-out/initialize/';
 
     /**
      * @var
