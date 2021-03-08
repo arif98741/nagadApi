@@ -19,9 +19,11 @@ use NagadApi\Base;
 
 require 'vendor/autoload.php';
 
-
+//all configuration are used here for demo purpose.
+//for use in dev mode use 'development'
+//for use in production mode use 'production'
 $config = [
-    'NAGAD_APP_ENV' => 'development',
+    'NAGAD_APP_ENV' => 'development', //development||production
     'NAGAD_APP_LOG' => '1',
     'NAGAD_APP_ACCOUNT' => '016XXXXXXXX', //demo
     'NAGAD_APP_MERCHANTID' => '6800000025', //demo
