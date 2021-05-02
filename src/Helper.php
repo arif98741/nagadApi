@@ -1,4 +1,5 @@
 <?php
+
 namespace NagadApi;
 
 
@@ -91,11 +92,18 @@ class Helper extends Key
         curl_setopt($url, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($url, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($url, CURLOPT_SSL_VERIFYPEER, 0);
-
         $resultData = curl_exec($url);
-        $response = json_decode($resultData, true, 512);
-        curl_close($url);
-        return $response;
+        $curl_error = curl_error($url);
+
+        if (!empty($curl_error)) {
+            return [
+                'error' => $curl_error
+            ];
+        } else {
+            $response = json_decode($resultData, true, 512);
+            curl_close($url);
+            return $response;
+        }
     }
 
     /**
