@@ -51,6 +51,7 @@ class RequestHandler
     /**
      * RequestHandler constructor.
      * @param Base $base
+     * @since v1.6.0
      */
     public function __construct(Base $base)
     {
@@ -62,6 +63,7 @@ class RequestHandler
      * Fire request to nagad api
      * @return array
      * @throws Exception
+     * @since v1.6.0
      */
     public function sendRequest()
     {
@@ -150,6 +152,7 @@ class RequestHandler
      * @param $sensitiveData
      * @param $postData
      * @return array
+     * @since v1.8.4.4
      */
     private function showResponse($resultData, $sensitiveData, $postData)
     {

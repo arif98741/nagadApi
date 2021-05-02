@@ -3,9 +3,7 @@
  *
  *  * -------------------------------------------------------------
  *  * Copyright (c) 2020
- *  * -created by Ariful Islam
- *  * -All Rights Preserved By
- *  *     Ariful Islam
+ *  * -All Rights Preserved By  Ariful Islam
  *  *    www.phpdark.com
  *  * -If you have any query then knock me at
  *  * arif98741@gmail.com
@@ -17,12 +15,13 @@
 namespace UnitTestFiles\Test;
 
 
-class FirstTest
+use PHPUnit\Framework\TestCase;
+
+class FunctionalityTest extends TestCase
 {
     public function testTrueAssetsToTrue()
     {
         $condition = true;
-        $this->assertTrue($condition);
-
+        $this->assertTrue(true);
     }
 }

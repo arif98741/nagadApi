@@ -68,6 +68,7 @@ class Base
      * Base constructor
      * @param $config
      * @param $params
+     * @since v1.3.2
      */
     public function __construct($config, $params)
     {
@@ -96,6 +97,7 @@ class Base
      * @param Base $base
      * @return array
      * @throws \Exception
+     * @since v1.6.0
      */
     public function payNow(Base $base)
     {
@@ -106,6 +108,7 @@ class Base
 
     /**
      * @return string
+     * @since v1.3.1
      */
     public function getTimezone()
     {
@@ -114,6 +117,7 @@ class Base
 
     /**
      * @param $timeZone
+     * @since v1.3.1
      */
     public function setTimeZone($timeZone)
     {
@@ -127,6 +131,7 @@ class Base
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getAmount()
     {
@@ -135,6 +140,7 @@ class Base
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getInvoice()
     {
@@ -143,6 +149,7 @@ class Base
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getMerchantID()
     {
@@ -151,6 +158,7 @@ class Base
 
     /**
      * @return string
+     * @since v1.3.1
      */
     public function getBaseUrl()
     {
@@ -159,6 +167,7 @@ class Base
 
     /**
      * @return $this
+     * @since v1.3.1
      */
     public function getVariables()
     {

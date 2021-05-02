@@ -10,6 +10,7 @@ class Helper extends Key
     /**
      * Helper constructor.
      * @param $config
+     * @since v1.3.1
      */
     public function __construct($config)
     {
@@ -22,6 +23,7 @@ class Helper extends Key
      * @param string $prefix
      * @param string $suffix
      * @return string
+     * @since v1.3.1
      */
     public static function generateRandomString($length = 40, $prefix = '', $suffix = '')
     {
@@ -45,6 +47,7 @@ class Helper extends Key
      * Generate Encryption to Public Key
      * @param $data
      * @return string
+     * @since v1.3.1
      */
     function EncryptDataWithPublicKey($data)
     {
@@ -59,6 +62,7 @@ class Helper extends Key
      * Generate Signature
      * @param $data
      * @return string
+     * @since v1.3.1
      */
     public function SignatureGenerate($data)
     {
@@ -73,6 +77,7 @@ class Helper extends Key
      * @param $PostURL
      * @param $PostData
      * @return mixed
+     * @since v1.3.1
      */
     public function HttpPostMethod($PostURL, $PostData)
     {
@@ -110,6 +115,7 @@ class Helper extends Key
      * Get Client IP | Example : Public IP: 121.23.48.96. 185.96.85.256
      * (above ips are for just example)
      * @return mixed|string
+     * @since v1.3.1
      */
     public function getClientIP()
     {
@@ -134,6 +140,7 @@ class Helper extends Key
     /**
      * @param $cryptoText
      * @return mixed
+     * @since v1.3.1
      */
     public function DecryptDataWithPrivateKey($cryptoText)
     {
@@ -146,10 +153,12 @@ class Helper extends Key
     /**
      * Generate Random Invoice For Testing Purpose
      * You Can also use it for making production
-     * @param $prefix
      * @param int $length
      * @param bool $capitalize
+     * @param string $prefix
+     * @param string $suffix
      * @return string
+     * @since v1.3.1
      */
     public static function generateFakeInvoice($length = 20, $capitalize = false, $prefix = '', $suffix = '')
     {
@@ -162,6 +171,7 @@ class Helper extends Key
 
     /**
      * @param $data
+     * @since v1.3.1
      */
     public static function errorLog($data)
     {
@@ -186,6 +196,7 @@ class Helper extends Key
     /**
      * Generate Server Details And Return Response
      * @return array
+     * @since v1.3.1
      */
     public static function serverDetails()
     {
@@ -202,6 +213,7 @@ class Helper extends Key
      * This is for formatting and getting returning response data from url;
      * @param $response
      * @return mixed
+     * @since v1.3.1
      */
     public function successResponse($response)
     {

@@ -39,6 +39,7 @@ class Key
     /**
      * Key constructor.
      * @param $config
+     * @since v1.3.1
      */
     public function __construct($config)
     {
@@ -70,12 +71,17 @@ class Key
      * Return all data inside .env file as array
      * @param $config
      * @return array
+     * @since v1.3.1
      */
     private function generateEnv($config)
     {
         return $config;
     }
 
+    /**
+     * @return $this
+     * @since v1.3.1
+     */
     public function getVariables()
     {
         return $this;
@@ -83,6 +89,7 @@ class Key
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getAppEnv()
     {
@@ -91,6 +98,7 @@ class Key
 
     /**
      * @param mixed $appEnv
+     * @since v1.3.1
      */
     public function setAppEnv($appEnv)
     {
@@ -99,6 +107,7 @@ class Key
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getAppAccount()
     {
@@ -107,6 +116,7 @@ class Key
 
     /**
      * @param mixed $appAccount
+     * @since v1.3.1
      */
     public function setAppAccount($appAccount)
     {
@@ -115,6 +125,7 @@ class Key
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getAppMerchantID()
     {
@@ -123,6 +134,7 @@ class Key
 
     /**
      * @param mixed $appMerchantID
+     * @since v1.3.1
      */
     public function setAppMerchantID($appMerchantID)
     {
@@ -131,6 +143,7 @@ class Key
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getMerchantPrivateKey()
     {
@@ -139,6 +152,7 @@ class Key
 
     /**
      * @param mixed $merchantPrivateKey
+     * @since v1.3.1
      */
     public function setMerchantPrivateKey($merchantPrivateKey)
     {
@@ -147,6 +161,7 @@ class Key
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getPgPublicKey()
     {
@@ -155,6 +170,7 @@ class Key
 
     /**
      * @param mixed $pgPublicKey
+     * @since v1.3.1
      */
     public function setPgPublicKey($pgPublicKey)
     {
@@ -163,6 +179,7 @@ class Key
 
     /**
      * @return string
+     * @since v1.3.1
      */
     public function getCurrencyCode()
     {
@@ -171,6 +188,7 @@ class Key
 
     /**
      * @return mixed
+     * @since v1.3.1
      */
     public function getTimeZone()
     {
@@ -179,6 +197,7 @@ class Key
 
     /**
      * @param mixed $timeZone
+     * @since v1.3.1
      */
     public function setTimeZone($timeZone)
     {
