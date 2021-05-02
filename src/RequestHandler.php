@@ -16,7 +16,7 @@
 
 namespace NagadApi;
 
-use NagadApi\Exception\ExceptionHandler;
+use Exception;
 
 /**
  * This is the main performer that means request handler for entire nagadApi
@@ -63,7 +63,7 @@ class RequestHandler
     /**
      * Fire request to nagad api
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function sendRequest()
     {
@@ -84,40 +84,19 @@ class RequestHandler
             'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData)),
             'signature' => $this->helper->SignatureGenerate(json_encode($sensitiveData))
         );
+
         $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
         $this->initUrl = $postUrl;
+
         if (is_array($resultData) && array_key_exists('reason', $resultData)) {
-
-            return $resultData;
-
-        } else if ($resultData === NULL) {
-            return $this->response = [
-                'status' => 'error',
-                'response' => [
-                    'code' => 102,
-                    'message' => 'NULL Response. Check your internet connection',
-                ],
-                'request' => [
-                    'environment' => $this->base->environment,
-                    'time' => [
-                        'request time' => date('Y-m-d H:i:s'),
-                        'timezone' => $this->base->getTimezone()
-                    ],
-                    'url' => [
-                        'base_url' => $this->base->getBaseUrl(),
-                        'api_url' => $this->apiUrl
-                    ],
-                    'data' => [
-                        'sensitiveData' => $sensitiveData,
-                        'postData' => $postData
-                    ],
-
-                ],
-                'server' => Helper::serverDetails()
-            ];
+            $this->showResponse($resultData, $sensitiveData, $postData);
+            return $this->response;
+        } else if (is_array($resultData) && array_key_exists('error', $resultData)) {
+            $this->showResponse($resultData, $sensitiveData, $postData);
+            return $this->response;
         }
 
-        //check existance of sensitiveData and signature
+        //check existence of sensitiveData and signature
         if (array_key_exists('sensitiveData', $resultData) && array_key_exists('signature', $resultData)) {
 
             if (!empty($resultData['sensitiveData']) && !empty($resultData['signature'])) {
@@ -161,31 +140,41 @@ class RequestHandler
                 }
             }
         } else {
-            return $this->response = [
-                'status' => 'error',
-                'response' => [
-                    'code' => 101,
-                    'message' => $resultData['message'],
-                ],
-                'request' => [
-                    'environment' => $this->base->environment,
-                    'time' => [
-                        'request time' => date('Y-m-d H:i:s'),
-                        'timezone' => $this->base->getTimezone()
-                    ],
-                    'url' => [
-                        'base_url' => $this->base->getBaseUrl(),
-                        'api_url' => $this->apiUrl
-                    ],
-                    'data' => [
-                        'sensitiveData' => $sensitiveData,
-                        'postData' => $postData
-                    ]
-                ],
-                'server' => Helper::serverDetails()
-            ];
+            $this->showResponse($resultData['message'], [], []);
         }
 
+    }
+
+    /**
+     * @param $resultData
+     * @param $sensitiveData
+     * @param $postData
+     * @return array
+     */
+    private function showResponse($resultData, $sensitiveData, $postData)
+    {
+        $this->response = [
+            'status' => 'error',
+            'response' => $resultData,
+            'request' => [
+                'environment' => $this->base->environment,
+                'time' => [
+                    'request time' => date('Y-m-d H:i:s'),
+                    'timezone' => $this->base->getTimezone()
+                ],
+                'url' => [
+                    'base_url' => $this->base->getBaseUrl(),
+                    'api_url' => $this->apiUrl,
+                    'request_url' => $this->base->getBaseUrl() . $this->apiUrl,
+                ],
+                'data' => [
+                    'sensitiveData' => $sensitiveData,
+                    'postData' => $postData
+                ],
+
+            ],
+            'server' => Helper::serverDetails()
+        ];
     }
 
 }

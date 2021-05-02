@@ -100,6 +100,7 @@ class Base
     public function payNow(Base $base)
     {
         $request = new RequestHandler($base);
+
         return $request->sendRequest();
     }
 
