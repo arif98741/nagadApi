@@ -4,12 +4,10 @@
  *  * -------------------------------------------------------------
  *  * Copyright (c) 2020
  *  * -created by Ariful Islam
- *  * -All Rights Preserved By
- *  *     Ariful Islam
- *  *    www.phpdark.com
+ *  * -All Rights Preserved By Ariful Islam
  *  * -If you have any query then knock me at
  *  * arif98741@gmail.com
- *  * See my profile @ https://github.com/arif98741
+ *  * See my profile @https://github.com/arif98741
  *  * ----------------------------------------------------------------
  *
  */
