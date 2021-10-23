@@ -1,17 +1,13 @@
 <?php
 /*
  *
- *  * -------------------------------------------------------------
- *  * Copyright (c) 2020
- *  * -created by Ariful Islam
- *  * -All Rights Preserved By
- *  *     Ariful Islam
- *  *    www.phpdark.com
- *  * -If you have any query then knock me at
- *  * arif98741@gmail.com
- *  * See my profile @ https://github.com/arif98741
- *  * ----------------------------------------------------------------
- *
+ * -------------------------------------------------------------
+ * Copyright (c) 2020
+ * -All Rights Preserved By Ariful Islam
+ * -If you have any query then knock me at
+ * arif98741@gmail.com
+ * See my profile @ https://github.com/arif98741
+ * ----------------------------------------------------------------
  */
 
 namespace NagadApi\lib;
@@ -32,7 +28,7 @@ class Key
     private $pgPublicKey;
     private $currencyCode = '050';
 
-    private $timeZone;
+    private $timeZone = 'Asia/Dhaka';
 
     //private $merchantID = '';
 
@@ -63,7 +59,9 @@ class Key
         $this->appMerchantID = $envData['NAGAD_APP_MERCHANTID'];
         $this->merchantPrivateKey = $envData['NAGAD_APP_MERCHANT_PRIVATE_KEY'];
         $this->pgPublicKey = $envData['NAGAD_APP_MERCHANT_PG_PUBLIC_KEY'];
-        $this->timeZone = $envData['NAGAD_APP_TIMEZONE'];
+        if (array_key_exists('NAGAD_APP_TIMEZONE', $envData))
+
+            $this->timeZone = $envData['NAGAD_APP_TIMEZONE'];
 
     }
 

@@ -1,20 +1,19 @@
 <?php
 /*
  *
- *  * -------------------------------------------------------------
- *  * Copyright (c) 2020
- *  * -created by Ariful Islam
- *  * -All Rights Preserved By Ariful Islam
- *  * -If you have any query then knock me at
- *  * arif98741@gmail.com
- *  * See my profile @https://github.com/arif98741
- *  * ----------------------------------------------------------------
- *
+ * -------------------------------------------------------------
+ * Copyright (c) 2020
+ * -All Rights Preserved By Ariful Islam
+ * -If you have any query then knock me at
+ * arif98741@gmail.com
+ * See my profile @ https://github.com/arif98741
+ * ----------------------------------------------------------------
  */
 
 namespace NagadApi;
 
 use Exception;
+use NagadApi\Exception\ExceptionHandler;
 
 /**
  * This is the main performer that means request handler for entire nagadApi
@@ -78,35 +77,55 @@ class RequestHandler
             'challenge' => Helper::generateRandomString(40, 'you', 'me')
         );
 
+
+        try {
+            $publicSignature = $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData));
+        } catch (Exception $e) {
+            // return $this->showResponse($e->getMessage(), $sensitiveData, []);
+            throw new ExceptionHandler($e->getMessage());
+
+        }
+
+        try {
+            $signature = $this->helper->SignatureGenerate(json_encode($sensitiveData));
+        } catch (Exception $e) {
+            throw new ExceptionHandler($e->getMessage());
+
+        }
+
         $postData = array(
             'accountNumber' => $this->base->keyObject->getAppAccount(), //optional
             'dateTime' => Date('YmdHis'),
-            'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData)),
-            'signature' => $this->helper->SignatureGenerate(json_encode($sensitiveData))
+            'sensitiveData' => $publicSignature,
+            'signature' => $signature
         );
 
         $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
         $this->initUrl = $postUrl;
 
+
         if (is_array($resultData) && array_key_exists('reason', $resultData)) {
-            $this->showResponse($resultData, $sensitiveData, $postData);
-            return $this->response;
+
+            throw new ExceptionHandler($resultData['reason'] . ', ' . $resultData['message']);
+
         } else if (is_array($resultData) && array_key_exists('error', $resultData)) {
+
             $this->showResponse($resultData, $sensitiveData, $postData);
             return $this->response;
         }
+
 
         //check existence of sensitiveData and signature
         if (array_key_exists('sensitiveData', $resultData) && array_key_exists('signature', $resultData)) {
 
             if (!empty($resultData['sensitiveData']) && !empty($resultData['signature'])) {
-                $PlainResponse = json_decode($this->helper->DecryptDataWithPrivateKey($resultData['sensitiveData']), true);
-                if (isset($PlainResponse['paymentReferenceId']) && isset($PlainResponse['challenge'])) {
+                $plainResponse = json_decode($this->helper->DecryptDataWithPrivateKey($resultData['sensitiveData']), true);
+                if (isset($plainResponse['paymentReferenceId']) && isset($plainResponse['challenge'])) {
 
-                    $paymentReferenceId = $PlainResponse['paymentReferenceId'];
-                    $challenge = $PlainResponse['challenge'];
+                    $paymentReferenceId = $plainResponse['paymentReferenceId'];
+                    $challenge = $plainResponse['challenge'];
 
-                    $SensitiveDataOrder = array(
+                    $sensitiveDataOrder = array(
                         'merchantId' => $this->base->getMerchantID(),
                         'orderId' => $this->base->getInvoice(),
                         'currencyCode' => $this->base->keyObject->getCurrencyCode(),
@@ -114,29 +133,29 @@ class RequestHandler
                         'challenge' => $challenge
                     );
 
-                    $PostDataOrder = array(
-                        'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($SensitiveDataOrder)),
-                        'signature' => $this->helper->SignatureGenerate(json_encode($SensitiveDataOrder)),
+                    $postDataOrder = array(
+                        'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveDataOrder)),
+                        'signature' => $this->helper->SignatureGenerate(json_encode($sensitiveDataOrder)),
                         'merchantCallbackURL' => $this->base->merchantCallback,
 
                     );
                     $OrderSubmitUrl = $this->base->getBaseUrl() . "api/dfs/check-out/complete/"
                         . $paymentReferenceId;
 
-                    $Result_Data_Order = $this->helper->HttpPostMethod($OrderSubmitUrl, $PostDataOrder);
+                    $resultDataOrder = $this->helper->HttpPostMethod($OrderSubmitUrl, $postDataOrder);
 
-                    if (array_key_exists('status', $Result_Data_Order)) {
+                    if (array_key_exists('status', $resultDataOrder)) {
 
-                        if ($Result_Data_Order['status'] == "Success") {
-                            $url = json_encode($Result_Data_Order['callBackUrl']);
+                        if ($resultDataOrder['status'] == "Success") {
+                            $url = json_encode($resultDataOrder['callBackUrl']);
                             echo "<script>window.open($url, '_self')</script>";
                             exit;
                         } else {
-                            echo json_encode($Result_Data_Order);
+                            echo json_encode($resultDataOrder);
                         }
 
                     } else {
-                        return $Result_Data_Order;
+                        return $resultDataOrder;
                     }
 
                 }
@@ -151,7 +170,7 @@ class RequestHandler
      * @param $resultData
      * @param $sensitiveData
      * @param $postData
-     * @return array
+     * @return void
      * @since v1.8.4.4
      */
     private function showResponse($resultData, $sensitiveData, $postData)

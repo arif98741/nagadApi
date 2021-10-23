@@ -1,8 +1,19 @@
 <?php
-
+/*
+ *
+ * -------------------------------------------------------------
+ * Copyright (c) 2020
+ * -All Rights Preserved By Ariful Islam
+ * -If you have any query then knock me at
+ * arif98741@gmail.com
+ * See my profile @ https://github.com/arif98741
+ * ----------------------------------------------------------------
+ */
 namespace NagadApi;
 
 
+use GuzzleHttp\Exception\GuzzleException;
+use NagadApi\Exception\ExceptionHandler;
 use NagadApi\lib\Key;
 
 class Helper extends Key
@@ -47,6 +58,7 @@ class Helper extends Key
      * Generate Encryption to Public Key
      * @param $data
      * @return string
+     * @throws ExceptionHandler
      * @since v1.3.1
      */
     function EncryptDataWithPublicKey($data)
@@ -54,21 +66,31 @@ class Helper extends Key
 
         $publicKey = "-----BEGIN PUBLIC KEY-----\n" . $this->getPgPublicKey() . "\n-----END PUBLIC KEY-----";
         $keyResource = openssl_get_publickey($publicKey);
-        openssl_public_encrypt($data, $cryptoText, $keyResource);
-        return base64_encode($cryptoText);
+        $status = openssl_public_encrypt($data, $cryptoText, $keyResource);
+        if ($status) {
+            return base64_encode($cryptoText);
+        } else {
+            throw new ExceptionHandler('Invalid Public key');
+        }
     }
 
     /**
      * Generate Signature
      * @param $data
      * @return string
+     * @throws ExceptionHandler
      * @since v1.3.1
      */
     public function SignatureGenerate($data)
     {
         $privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" . $this->getMerchantPrivateKey() . "\n-----END RSA PRIVATE KEY-----";
-        openssl_sign($data, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-        return base64_encode($signature);
+        $status = openssl_sign($data, $signature, $privateKey, OPENSSL_ALGO_SHA256);
+        if ($status) {
+
+            return base64_encode($signature);
+        } else {
+            throw new ExceptionHandler('Invalid private key');
+        }
     }
 
 
@@ -77,10 +99,12 @@ class Helper extends Key
      * @param $PostURL
      * @param $PostData
      * @return mixed
+     * @throws GuzzleException
      * @since v1.3.1
      */
     public function HttpPostMethod($PostURL, $PostData)
     {
+
         $url = curl_init($PostURL);
         $postToken = json_encode($PostData);
         $header = array(
@@ -109,6 +133,8 @@ class Helper extends Key
             curl_close($url);
             return $response;
         }
+
+
     }
 
     /**

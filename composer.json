@@ -25,11 +25,15 @@
     "php": "^5.5 || ^7.0 || ^8.0",
     "ext-curl": "*"
   },
-  "description": "This is Bangladeshi nagad payment gateway api development library. This can by used in your website, android or apple application ",
+  "description": "This is Bangladeshi nagad payment gateway api development library. This library can be used easily as dependency in your php application.",
   "keywords": [
     "nagad",
     "payment gateway",
-    "api"
+    "api",
+    "nagad payment gateway",
+    "Bangladeshi payment gateway",
+    "nagad php library",
+    "payment gateway"
   ],
   "minimum-stability": "stable",
   "require-dev": {
