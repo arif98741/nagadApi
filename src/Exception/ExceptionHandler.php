@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NagadApi\Exception;
+namespace Xenon\NagadApi\Exception;
 
 
 use Throwable;

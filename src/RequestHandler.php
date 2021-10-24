@@ -10,7 +10,7 @@
  * ----------------------------------------------------------------
  */
 
-namespace NagadApi;
+namespace Xenon\NagadApi;
 
 use Exception;
 use NagadApi\Exception\ExceptionHandler;

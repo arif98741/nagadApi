@@ -9,12 +9,12 @@
  * See my profile @ https://github.com/arif98741
  * ----------------------------------------------------------------
  */
-namespace NagadApi;
+namespace Xenon\NagadApi;
 
 
 use GuzzleHttp\Exception\GuzzleException;
 use NagadApi\Exception\ExceptionHandler;
-use NagadApi\lib\Key;
+use Xenon\NagadApi\lib\Key;
 
 class Helper extends Key
 {

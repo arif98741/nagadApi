@@ -10,14 +10,14 @@
  * ----------------------------------------------------------------
  */
 
-namespace NagadApi\lib;
+namespace Xenon\NagadApi\lib;
 
 /**
  * Class Key
  * This class is using for generating data from environment variable .env
  * This any change in .env file will affect array vale of $_ENV; Array value of
  * .env can be easily find using generateEnv of Key object
- * @package NagadApi\lib
+ * @package Xenon\NagadApi\lib
  */
 class Key
 {

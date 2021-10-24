@@ -1,25 +1,25 @@
 {
-  "name": "arif98741/nagad-api",
+  "name": "xenon/nagad-api",
   "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "Ariful Islam",
       "email": "arif98741@gmail.com",
-      "homepage": "https://phpdark.com",
+      "homepage": "https://github.com/arif98741",
       "role": "Developer, Maintainer"
     }
   ],
   "autoload": {
     "psr-4": {
-      "NagadApi\\": "src/"
+      "Xenon\\NagadApi\\": "src/"
     },
     "psr-0": {
       "UnitTestFiles": ""
     }
   },
   "support": {
-    "email": "admin@phpdark.com"
+    "email": "arif98741@gmail.com"
   },
   "require": {
     "php": "^5.5 || ^7.0 || ^8.0",

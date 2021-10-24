@@ -10,11 +10,10 @@
  * ----------------------------------------------------------------
  */
 
-namespace NagadApi;
+namespace Xenon\NagadApi;
 
 
-use NagadApi\lib\Key;
-
+use Xenon\NagadApi\lib\Key;
 /**
  * Class Base
  * This is the decision maker where request will go, generate url and also
@@ -78,7 +77,7 @@ class Base
 
         /**
          * Before activating production environment be confirm that your system is ok and out of bug
-         * it is highly recommended to test your environment using development environment
+         * it is highly recommended to Test your environment using development environment
          * your ip,domain and callback_url should be whitelisted in Nagad end
          */
         if ($this->keyObject->getAppEnv() == 'production') {

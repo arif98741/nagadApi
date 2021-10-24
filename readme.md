@@ -5,7 +5,7 @@
 # Installation Process
 
 ```bash
-composer require arif98741/nagad-api
+composer require xenon/nagad-api
 ```
 
 # Example Code
