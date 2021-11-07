@@ -13,7 +13,7 @@ namespace Xenon\NagadApi;
 
 
 use GuzzleHttp\Exception\GuzzleException;
-use NagadApi\Exception\ExceptionHandler;
+use Xenon\NagadApi\Exception\ExceptionHandler;
 use Xenon\NagadApi\lib\Key;
 
 class Helper extends Key

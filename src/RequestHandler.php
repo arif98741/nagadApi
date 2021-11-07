@@ -13,7 +13,7 @@
 namespace Xenon\NagadApi;
 
 use Exception;
-use NagadApi\Exception\ExceptionHandler;
+use Xenon\NagadApi\Exception\ExceptionHandler;
 
 /**
  * This is the main performer that means request handler for entire nagadApi
