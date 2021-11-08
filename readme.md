@@ -57,14 +57,38 @@ $status = $nagad->payNow($nagad); //return array response
 
 
 # Information:
-1. Need sandbox details for sandbox testing
-2. Need production details for production final
-3. Need testing before going to live
-4. Your server ip, domain and callback url should be whitelisted before running in production
-4. If you have any question/query then email me arif98741@gmail.com
-5. Do Code, Be Crazy
+
+### Sandbox
+1. Need sandbox details for sandbox testing. Check your email that you have got from nagad authority
+2. Use sandbox details such as pgpublickey, privatekey, merchant-id for sandbox testing
+3. You need to register a mobile number for sandbox testing. Contact with your account manager for doing this
+4. You should test environment before going to live
+
+
+### Live
+1. Need production details for production final. You will get through email
+2. Your server ip/domain should be whitelisted before running in production
+
+Login to your nagad merchant panel
+
+`   https://auth.mynagad.com:10900/authentication-service-provider-1.0/login
+`
+
+**Step 1:**
+In the Merchant Portal, Go to Merchant Integration Details under Merchant Management Menu.
+You will get the Merchant ID which is your Merchant ID for Integration.
+
+Then, Click on “Key Generate” and 
+Download the Merchant Private Key and Merchant Public Key.
+
+**Step 2:**
+Go to Merchant Integration under Merchant Management Menu.
+Put your Call Back URL and Upload the Merchant Public Key which you have downloaded in Step 1. Add and Submit!
+
+3. If you have any question/query then email me arif98741@gmail.com
+4. Do Code, Be Crazy
 <br>
-##//If you find any kind of issues or bug you are highly encuraged to report. For reporting use issues.
+### If you find any kind of issues or bug you are highly encouraged to report. For reporting use issues.
 For can also push pull request. For pull request you should use dev branch. Because our master branch is serving at this moment for usage.
 
 
