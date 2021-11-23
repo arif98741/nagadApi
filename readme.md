@@ -14,8 +14,8 @@ composer require xenon/nagad-api
 
 <?php
 
-use NagadApi\Helper;
-use NagadApi\Base;
+use Xenon\NagadApi\Helper;
+use Xenon\NagadApi\Base;
 
 require 'vendor/autoload.php';
 
@@ -23,7 +23,7 @@ require 'vendor/autoload.php';
 //for use in dev mode use 'development'
 //for use in production mode use 'production'
 $config = [
-    'NAGAD_APP_ENV' => 'development', //development||production
+    'NAGAD_APP_ENV' => 'development', //development|production
     'NAGAD_APP_LOG' => '1',
     'NAGAD_APP_ACCOUNT' => '016XXXXXXXX', //demo
     'NAGAD_APP_MERCHANTID' => '6800000025', //demo
@@ -38,9 +38,6 @@ $nagad = new Base($config, [
     'merchantCallback' => 'https://phpdark.com/payment/success/id=4',
 ]);
 $status = $nagad->payNow($nagad); //return array response
-
-
-
 
 ```
 #####Maintainer
