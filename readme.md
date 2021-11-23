@@ -39,12 +39,23 @@ $nagad = new Base($config, [
 ]);
 $status = $nagad->payNow($nagad); //will redirect to payment url of Nagad
 
-//after that use below method for extracting payment response 
+//after that use below method for extracting payment response that will return an array
 $response = Helper::successResponse('https://example.com/payment/success/id=4/?merchant=683XXXX225&order_id=CKH060JXXXXXFRA2&payment_ref_id=MXXXXXXXXtIMDYwSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20211123235008&issuer_payment_ref=MTEyMzIzNDg1NzUwOS42ODMwMDIwMDcxMDQyMjUuQ0tIMDYwSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=');
+Array
+(
+    [merchant] => 683XXXX225
+    [order_id] => CKH060JXXXXXFRA2
+    [payment_ref_id] => MXXXXXXXXtIMDYwSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=
+    [status] => Success
+    [status_code] => 00_0000_000
+    [message] => Successful Transaction
+    [payment_dt] => 20211123235008
+    [issuer_payment_ref] => MTEyMzIzNDg1NzUwOXXXXXtIMDYwSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=
+)
 
 
 //For payment verification use below method. You will then get below json as response. 
-echo $config->verifyPayment($paymentReferenceId);
+echo $config->verifyPayment($response['payment_ref_id']);
 ## Payment verification Response
 {
 	merchantId: "683XXXX225",
