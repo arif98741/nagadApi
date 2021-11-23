@@ -35,18 +35,21 @@ $config = [
 $nagad = new Base($config, [
     'amount' => 100,
     'invoice' => Helper::generateFakeInvoice(15, true),
-    'merchantCallback' => 'https://phpdark.com/payment/success/id=4',
+    'merchantCallback' => 'https://example.com/payment/success/id=4',
 ]);
-$status = $nagad->payNow($nagad); //return array response
+$status = $nagad->payNow($nagad); //will redirect to payment url of Nagad
 
-//for payment verification use below method
+//after that use below method for extracting payment response 
+$response = Helper::successResponse('https://example.com/payment/success/id=4/?merchant=683XXXX225&order_id=CKH060JXXXXXFRA2&payment_ref_id=MXXXXXXXXtIMDYwSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20211123235008&issuer_payment_ref=MTEyMzIzNDg1NzUwOS42ODMwMDIwMDcxMDQyMjUuQ0tIMDYwSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=');
+
+
+//For payment verification use below method. You will then get below json as response. 
 echo $config->verifyPayment($paymentReferenceId);
-
-//you will then get below json as response. 
+## Payment verification Response
 {
-	merchantId: "683XXXX0710XXX5",
-	orderId: "CKH0XXQJPXXXX",
-	paymentRefId: "MTEyMzIzNDg1NzUwOSXXXXXXXXXXXXXXXXXXXSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=",
+	merchantId: "683XXXX225",
+	orderId: "CKH060JXXXXXFRA2",
+	paymentRefId: "MXXXXXXXXtIMDYwSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=",
 	amount: "16",
 	clientMobileNo: "016****5428",
 	merchantMobileNo: "01XXXXXXX10",
