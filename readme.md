@@ -39,6 +39,27 @@ $nagad = new Base($config, [
 ]);
 $status = $nagad->payNow($nagad); //return array response
 
+//for payment verification use below method
+echo $config->verifyPayment($paymentReferenceId);
+
+//you will then get below json as response. 
+{
+	merchantId: "683XXXX0710XXX5",
+	orderId: "CKH0XXQJPXXXX",
+	paymentRefId: "MTEyMzIzNDg1NzUwOSXXXXXXXXXXXXXXXXXXXSjFRSlBRMUZSQTIuMTg0NTE2Yzc3ZmEzNmEwZTJlZjk=",
+	amount: "16",
+	clientMobileNo: "016****5428",
+	merchantMobileNo: "01XXXXXXX10",
+	orderDateTime: "2021-11-23 23:48:22.0",
+	issuerPaymentDateTime: "2021-11-23 23:50:08.0",
+	issuerPaymentRefNo: "000XXXW",
+	additionalMerchantInfo: null,
+	status: "Success",
+	statusCode: "000",
+	cancelIssuerDateTime: null,
+	cancelIssuerRefNo: null
+}
+
 ```
 #####Maintainer
 <ul>

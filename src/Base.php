@@ -14,6 +14,7 @@ namespace Xenon\NagadApi;
 
 
 use Xenon\NagadApi\lib\Key;
+
 /**
  * Class Base
  * This is the decision maker where request will go, generate url and also
@@ -31,7 +32,7 @@ class Base
     /**
      * @var string
      */
-    private $base_url = 'http://sandbox.mynagad.com:10080/remote-payment-gateway-1.0/';
+    private $base_url = 'http://sandbox.mynagad.com:10080/remote-payment-gateway-1.0/api/dfs/';
     /**
      * @var string
      */
@@ -81,7 +82,7 @@ class Base
          * your ip,domain and callback_url should be whitelisted in Nagad end
          */
         if ($this->keyObject->getAppEnv() == 'production') {
-            $this->base_url = 'https://api.mynagad.com/';
+            $this->base_url = 'https://api.mynagad.com/api/dfs/';
             $this->environment = $this->keyObject->getAppEnv();
         }
 
@@ -167,6 +168,15 @@ class Base
     public function getVariables()
     {
         return $this;
+    }
+
+    /**
+     * Verify Payment
+     */
+    public function verifyPayment($paymentRefId)
+    {
+        $url = $this->base_url . 'verify/payment/' . $paymentRefId;
+        return Helper::HttpGet($url);
     }
 
 }

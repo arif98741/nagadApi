@@ -29,7 +29,7 @@ class RequestHandler
     /**
      * @var
      */
-    private $apiUrl = 'api/dfs/check-out/initialize/';
+    private $apiUrl = 'check-out/initialize/';
 
     /**
      * @var
@@ -139,7 +139,7 @@ class RequestHandler
                         'merchantCallbackURL' => $this->base->merchantCallback,
 
                     );
-                    $OrderSubmitUrl = $this->base->getBaseUrl() . "api/dfs/check-out/complete/"
+                    $OrderSubmitUrl = $this->base->getBaseUrl() . "check-out/complete/"
                         . $paymentReferenceId;
 
                     $resultDataOrder = $this->helper->HttpPostMethod($OrderSubmitUrl, $postDataOrder);
