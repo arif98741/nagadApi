@@ -75,13 +75,13 @@ echo $config->verifyPayment($response['payment_ref_id']);
 }
 
 ```
-#####Maintainer
+### Maintainer
 <ul>
     <li><a href="https://github.com/arif98741">Ariful Islam</a></li>
 </ul>
 
 
-#####Contributors
+### Contributors
 <ul>
     <li><a href="https://github.com/tusharkhan">Tushar Khan</a></li>
 </ul>
