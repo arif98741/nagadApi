@@ -13,6 +13,7 @@
 namespace Xenon\NagadApi;
 
 
+use Exception;
 use Xenon\NagadApi\lib\Key;
 
 /**
@@ -92,7 +93,7 @@ class Base
      * Final Send Request to Nagad
      * @param Base $base
      * @return array
-     * @throws \Exception
+     * @throws Exception
      * @since v1.6.0
      */
     public function payNow(Base $base)
@@ -100,6 +101,19 @@ class Base
         $request = new RequestHandler($base);
 
         return $request->sendRequest();
+    }
+
+    /**
+     * Final Send Request to Nagad and Get Redirection Url
+     * @param Base $base
+     * @return string
+     * @throws Exception
+     * @since v1.6.0
+     */
+    public function payNowWithoutRedirection(Base $base): string
+    {
+        $request = new RequestHandler($base);
+        return $request->sendRequest(false);
     }
 
     /**
@@ -161,14 +175,6 @@ class Base
         return $this->base_url;
     }
 
-    /**
-     * @return $this
-     * @since v1.3.1
-     */
-    public function getVariables()
-    {
-        return $this;
-    }
 
     /**
      * Verify Payment

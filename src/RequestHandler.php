@@ -60,11 +60,11 @@ class RequestHandler
 
     /**
      * Fire request to nagad api
-     * @return array
+     * @return mixed
      * @throws Exception
      * @since v1.6.0
      */
-    public function sendRequest()
+    public function sendRequest(bool $redirection = true)
     {
         $postUrl = $this->base->getBaseUrl() . $this->apiUrl
             . $this->base->getMerchantID() .
@@ -81,7 +81,7 @@ class RequestHandler
         try {
             $publicSignature = $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData));
         } catch (Exception $e) {
-            // return $this->showResponse($e->getMessage(), $sensitiveData, []);
+
             throw new ExceptionHandler($e->getMessage());
 
         }
@@ -146,10 +146,13 @@ class RequestHandler
 
                     if (array_key_exists('status', $resultDataOrder)) {
 
-                        if ($resultDataOrder['status'] == "Success") {
+                        if ($resultDataOrder['status'] == "Success" && $redirection) {
                             $url = json_encode($resultDataOrder['callBackUrl']);
                             echo "<script>window.open($url, '_self')</script>";
                             exit;
+                        } elseif ($resultDataOrder['status'] == "Success" && !$redirection) {
+
+                            return $resultDataOrder['callBackUrl'];
                         } else {
                             echo json_encode($resultDataOrder);
                         }
@@ -163,7 +166,6 @@ class RequestHandler
         } else {
             $this->showResponse($resultData['message'], [], []);
         }
-
     }
 
     /**
