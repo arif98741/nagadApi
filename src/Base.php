@@ -110,7 +110,7 @@ class Base
      * @throws Exception
      * @since v1.6.0
      */
-    public function payNowWithoutRedirection(Base $base): string
+    public function payNowWithoutRedirection(Base $base)
     {
         $request = new RequestHandler($base);
         return $request->sendRequest(false);
