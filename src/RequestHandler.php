@@ -107,17 +107,14 @@ class RequestHandler
             throw new ExceptionHandler("Failed to generate nagad payment url as it is returning null response. Please be confirm you have whitelisted your server ip or server fix other server related issue");
         }
 
+        if (array_key_exists('error', $resultData)) {
+            throw new ExceptionHandler($resultData['error']);
+        }
 
         if (array_key_exists('reason', $resultData)) {
 
             throw new ExceptionHandler($resultData['reason'] . ', ' . $resultData['message']);
 
-        }
-
-        if (array_key_exists('error', $resultData)) {
-
-            $this->showResponse($resultData, $sensitiveData, $postData);
-            return $this->response;
         }
 
 
