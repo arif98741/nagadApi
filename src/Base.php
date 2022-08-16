@@ -98,9 +98,7 @@ class Base
      */
     public function payNow(Base $base)
     {
-        $request = new RequestHandler($base);
-
-        return $request->sendRequest();
+        return (new RequestHandler($base))->sendRequest();
     }
 
     /**
@@ -112,8 +110,7 @@ class Base
      */
     public function payNowWithoutRedirection(Base $base)
     {
-        $request = new RequestHandler($base);
-        return $request->sendRequest(false);
+        return (new RequestHandler($base))->sendRequest(false);
     }
 
     /**
