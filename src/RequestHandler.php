@@ -103,12 +103,18 @@ class RequestHandler
         $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
         $this->initUrl = $postUrl;
 
+        if (!is_array($resultData)) {
+            throw new ExceptionHandler("Failed to generate nagad payment url as it is returning null response. Please be confirm you have whitelisted your server ip or server fix other server related issue");
+        }
 
-        if (is_array($resultData) && array_key_exists('reason', $resultData)) {
+
+        if (array_key_exists('reason', $resultData)) {
 
             throw new ExceptionHandler($resultData['reason'] . ', ' . $resultData['message']);
 
-        } else if (is_array($resultData) && array_key_exists('error', $resultData)) {
+        }
+
+        if (array_key_exists('error', $resultData)) {
 
             $this->showResponse($resultData, $sensitiveData, $postData);
             return $this->response;
@@ -120,7 +126,7 @@ class RequestHandler
 
             if (!empty($resultData['sensitiveData']) && !empty($resultData['signature'])) {
                 $plainResponse = json_decode($this->helper->DecryptDataWithPrivateKey($resultData['sensitiveData']), true);
-                if (isset($plainResponse['paymentReferenceId']) && isset($plainResponse['challenge'])) {
+                if (isset($plainResponse['paymentReferenceId'], $plainResponse['challenge'])) {
 
                     $paymentReferenceId = $plainResponse['paymentReferenceId'];
                     $challenge = $plainResponse['challenge'];
@@ -150,12 +156,14 @@ class RequestHandler
                             $url = json_encode($resultDataOrder['callBackUrl']);
                             echo "<script>window.open($url, '_self')</script>";
                             exit;
-                        } elseif ($resultDataOrder['status'] == "Success" && !$redirection) {
+                        }
+
+                        if ($resultDataOrder['status'] == "Success" && !$redirection) {
 
                             return $resultDataOrder['callBackUrl'];
-                        } else {
-                            echo json_encode($resultDataOrder);
                         }
+
+                        echo json_encode($resultDataOrder);
 
                     } else {
                         return $resultDataOrder;
