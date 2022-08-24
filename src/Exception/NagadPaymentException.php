@@ -6,7 +6,7 @@ namespace Xenon\NagadApi\Exception;
 
 use Throwable;
 
-class ExceptionHandler extends \Exception
+class NagadPaymentException extends \Exception
 {
 
     public function __construct($message = "", $code = 0, Throwable $previous = null)

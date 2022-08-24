@@ -21,16 +21,35 @@ namespace Xenon\NagadApi\lib;
  */
 class Key
 {
-    private $appEnv;
+    /**
+     * @var mixed
+     */
+    protected $appEnv;
+    /**
+     * @var mixed
+     */
     private $appAccount;
+    /**
+     * @var mixed
+     */
     private $appMerchantID;
+    /**
+     * @var mixed
+     */
     private $merchantPrivateKey;
+    /**
+     * @var mixed
+     */
     private $pgPublicKey;
+    /**
+     * @var string
+     */
     private $currencyCode = '050';
 
+    /**
+     * @var mixed|string
+     */
     private $timeZone = 'Asia/Dhaka';
-
-    //private $merchantID = '';
 
     /**
      * Key constructor.
@@ -59,9 +78,9 @@ class Key
         $this->appMerchantID = $envData['NAGAD_APP_MERCHANTID'];
         $this->merchantPrivateKey = $envData['NAGAD_APP_MERCHANT_PRIVATE_KEY'];
         $this->pgPublicKey = $envData['NAGAD_APP_MERCHANT_PG_PUBLIC_KEY'];
-        if (array_key_exists('NAGAD_APP_TIMEZONE', $envData))
-
+        if (array_key_exists('NAGAD_APP_TIMEZONE', $envData)) {
             $this->timeZone = $envData['NAGAD_APP_TIMEZONE'];
+        }
 
     }
 

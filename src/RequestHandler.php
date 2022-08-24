@@ -12,12 +12,13 @@
 
 namespace Xenon\NagadApi;
 
+use Carbon\Carbon;
 use Exception;
 use Xenon\NagadApi\Exception\ExceptionHandler;
 
 /**
  * This is the main performer that means request handler for entire nagadApi
- * This class is doing extra-ordinary job according to request type.
+ * This class is doing extraordinary job according to request type.
  * It also generates api response for viewing in monitor screen.
  * Class RequestHandler
  * @package NagadApi
@@ -188,7 +189,7 @@ class RequestHandler
             'request' => [
                 'environment' => $this->base->environment,
                 'time' => [
-                    'request time' => date('Y-m-d H:i:s'),
+                    'request time' => Carbon::now(),
                     'timezone' => $this->base->getTimezone()
                 ],
                 'url' => [

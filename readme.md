@@ -61,7 +61,9 @@ Array
 
 
 //For payment verification use below method. You will then get below json as response. 
-echo $config->verifyPayment($response['payment_ref_id']);
+$helper = new Helper($config);
+$response = $helper->verifyPayment($response['payment_ref_id']);
+
 ## Payment verification Response
 {
 	merchantId: "683XXXX225",

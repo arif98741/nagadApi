@@ -13,12 +13,16 @@
 namespace Xenon\NagadApi;
 
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Xenon\NagadApi\Exception\ExceptionHandler;
+use Xenon\NagadApi\Exception\NagadPaymentException;
 use Xenon\NagadApi\lib\Key;
 
 class Helper extends Key
 {
+
+
     /**
      * Helper constructor.
      * @param $config
@@ -26,6 +30,7 @@ class Helper extends Key
      */
     public function __construct($config)
     {
+
         parent::__construct($config);
     }
 
@@ -37,7 +42,7 @@ class Helper extends Key
      * @return string
      * @since v1.3.1
      */
-    public static function generateRandomString($length = 40, $prefix = '', $suffix = '')
+    public static function generateRandomString(int $length = 40, string $prefix = '', string $suffix = '')
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -70,9 +75,9 @@ class Helper extends Key
         $status = openssl_public_encrypt($data, $cryptoText, $keyResource);
         if ($status) {
             return base64_encode($cryptoText);
-        } else {
-            throw new ExceptionHandler('Invalid Public key');
         }
+
+        throw new ExceptionHandler('Invalid Public key');
     }
 
     /**
@@ -89,18 +94,15 @@ class Helper extends Key
         if ($status) {
 
             return base64_encode($signature);
-        } else {
-            throw new ExceptionHandler('Invalid private key');
         }
+
+        throw new ExceptionHandler('Invalid private key');
     }
 
-
     /**
-     * HTTP Post Method Request
      * @param $PostURL
      * @param $PostData
-     * @return mixed
-     * @throws GuzzleException
+     * @return array|mixed
      * @since v1.3.1
      */
     public function HttpPostMethod($PostURL, $PostData)
@@ -129,11 +131,11 @@ class Helper extends Key
             return [
                 'error' => $curl_error
             ];
-        } else {
-            $response = json_decode($resultData, true, 512);
-            curl_close($url);
-            return $response;
         }
+
+        $response = json_decode($resultData, true, 512);
+        curl_close($url);
+        return $response;
 
     }
 
@@ -142,6 +144,7 @@ class Helper extends Key
      * Http Get Method
      * @param $url
      * @return bool|string
+     * @throws Exception
      */
     public static function HttpGet($url)
     {
@@ -154,9 +157,15 @@ class Helper extends Key
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $file_contents = curl_exec($ch);
+
+        $response = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+            throw new NagadPaymentException($error_msg);
+        }
+
         curl_close($ch);
-        return $file_contents;
+        return $response;
     }
 
     /**
@@ -265,10 +274,26 @@ class Helper extends Key
      */
     public static function successResponse($response)
     {
-        // $response = 'https://phpdark.com/payment/success/id=4/?merchant=683002007104225&order_id=EBSXGJ5OYQCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
+        // $response = 'https://example.com/payment/success/id=4/?merchant=683002007104225&order_id=EBSXGJ5OYQCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
         $parts = parse_url($response);
         parse_str($parts['query'], $query);
         return $query;
+    }
+
+    /**
+     * Verify Payment
+     * @throws Exception
+     */
+    public function verifyPayment($paymentRefId)
+    {
+        $this->base_url = 'http://sandbox.mynagad.com:10080/remote-payment-gateway-1.0/api/dfs/';
+        if ($this->getAppEnv() === 'production') {
+            $this->base_url = 'https://api.mynagad.com/api/dfs/';
+        }
+
+        $url = $this->base_url . 'verify/payment/' . $paymentRefId;
+
+        return self::HttpGet($url);
     }
 
 }
