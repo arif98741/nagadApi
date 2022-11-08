@@ -21,8 +21,6 @@ use Xenon\NagadApi\lib\Key;
 
 class Helper extends Key
 {
-
-
     /**
      * Helper constructor.
      * @param $config
@@ -30,7 +28,6 @@ class Helper extends Key
      */
     public function __construct($config)
     {
-
         parent::__construct($config);
     }
 
@@ -67,7 +64,7 @@ class Helper extends Key
      * @throws ExceptionHandler
      * @since v1.3.1
      */
-    function EncryptDataWithPublicKey($data)
+    public function EncryptDataWithPublicKey($data)
     {
 
         $publicKey = "-----BEGIN PUBLIC KEY-----\n" . $this->getPgPublicKey() . "\n-----END PUBLIC KEY-----";
