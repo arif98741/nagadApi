@@ -15,12 +15,15 @@ namespace Xenon\NagadApi;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
+use RuntimeException;
 use Xenon\NagadApi\Exception\ExceptionHandler;
 use Xenon\NagadApi\Exception\NagadPaymentException;
 use Xenon\NagadApi\lib\Key;
 
 class Helper extends Key
 {
+
+
     /**
      * Helper constructor.
      * @param $config
@@ -28,6 +31,7 @@ class Helper extends Key
      */
     public function __construct($config)
     {
+
         parent::__construct($config);
     }
 
@@ -64,7 +68,7 @@ class Helper extends Key
      * @throws ExceptionHandler
      * @since v1.3.1
      */
-    public function EncryptDataWithPublicKey($data)
+    function EncryptDataWithPublicKey($data)
     {
 
         $publicKey = "-----BEGIN PUBLIC KEY-----\n" . $this->getPgPublicKey() . "\n-----END PUBLIC KEY-----";
@@ -97,16 +101,15 @@ class Helper extends Key
     }
 
     /**
-     * @param $PostURL
-     * @param $PostData
+     * @param string $postUrl
+     * @param array $postData
      * @return array|mixed
      * @since v1.3.1
      */
-    public function HttpPostMethod($PostURL, $PostData)
+    public function HttpPostMethod(string $postUrl, array $postData)
     {
-
-        $url = curl_init($PostURL);
-        $postToken = json_encode($PostData);
+        $url = curl_init($postUrl);
+        $postToken = json_encode($postData);
         $header = array(
             'Content-Type:application/json',
             'X-KM-Api-Version:v-0.2.0',
@@ -175,15 +178,15 @@ class Helper extends Key
     {
         if (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else if (isset($_SERVER['HTTP_X_FORWARDED'])) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED'])) {
             $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        } else if (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+        } elseif (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
             $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        } else if (isset($_SERVER['HTTP_FORWARDED'])) {
+        } elseif (isset($_SERVER['HTTP_FORWARDED'])) {
             $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        } else if (isset($_SERVER['REMOTE_ADDR'])) {
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ipaddress = $_SERVER['REMOTE_ADDR'];
         } else {
             $ipaddress = 'UNKNOWN IP';
@@ -230,10 +233,11 @@ class Helper extends Key
     public static function errorLog($data)
     {
         if (!file_exists('logs/nagadApi') && !mkdir('logs', 0775) && !is_dir('logs')) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', 'logs'));
+            throw new RuntimeException(sprintf('Directory "%s" was not created', 'logs'));
         }
 
-        if (!file_exists('logs/nagadApi/error.log')) {
+        $errorLogFile = 'logs/nagadApi/error.log';
+        if (!file_exists($errorLogFile)) {
 
             $logFile = "logs/error.log";
             $fh = fopen($logFile, 'w+') or die("can't open file");
@@ -241,10 +245,10 @@ class Helper extends Key
             chmod($logFile, 0755);
         }
         $date = '=====================' . date('Y-m-d H:i:s') . '=============================================\n';
-        file_put_contents('logs/nagadApi/error.log', print_r($date, true), FILE_APPEND);
-        file_put_contents('logs/nagadApi/error.log', PHP_EOL . print_r($data, true), FILE_APPEND);
+        file_put_contents($errorLogFile, print_r($date, true), FILE_APPEND);
+        file_put_contents($errorLogFile, PHP_EOL . print_r($data, true), FILE_APPEND);
         $string = '=====================' . date('Y-m-d H:i:s') . '=============================================' . PHP_EOL;
-        file_put_contents('logs/nagadApi/error.log', print_r($string, true), FILE_APPEND);
+        file_put_contents($errorLogFile, print_r($string, true), FILE_APPEND);
     }
 
     /**
@@ -271,7 +275,10 @@ class Helper extends Key
      */
     public static function successResponse($response)
     {
-        // $response = 'https://example.com/payment/success/id=4/?merchant=683002007104225&order_id=EBSXGJ5OYQCRO7D&payment_ref_id=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
+        // $response = 'https://example.com/payment/success/id=4/?merchant=683002007104225&order_id=EBSXGJ5OYQCRO7D&
+        //payment_ref_id=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl&
+        //status=Success&status_code=00_0000_000&message=Successful%20Transaction&payment_dt=20201129002747&
+        //issuer_payment_ref=MTEyOTAwMjY1NDMxNi42ODMwMDIwMDcxMDQyMjUuRUJTWEdKNU9ZUUNSTzdELmExODVkYWE4MDAyMDEyM2ZlYzRl';
         $parts = parse_url($response);
         parse_str($parts['query'], $query);
         return $query;
