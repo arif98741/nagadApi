@@ -22,7 +22,7 @@
     "email": "arif98741@gmail.com"
   },
   "require": {
-    "php": "^7.0|^8.0|^8.1",
+    "php": "^7.2|^8.0|^8.1|^8.2",
     "ext-curl": "*",
     "ext-json": "*",
     "nesbot/carbon": "^2.59",
