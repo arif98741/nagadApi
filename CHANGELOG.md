@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [v1.9.1.8](https://github.com/arif98741/nagadApi/releases/tag/v1.9.1.8) - 2022-12-20 07:16:47
+
+fix conflicts
+
+### Bug Fixes
+
+- general:
+  - fix conflicts ([e764eff](https://github.com/arif98741/nagadApi/commit/e764eff970af61d791d81c830b7abd073d06a10a)) ([#5](https://github.com/arif98741/nagadApi/pull/5))
+
 ## [v1.9.1.7](https://github.com/arif98741/nagadApi/releases/tag/v1.9.1.7) - 2022-11-08 07:16:11
 
 **Full Changelog**: https://github.com/arif98741/nagadApi/compare/v1.9.1.6...v1.9.1.7
