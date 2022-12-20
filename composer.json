@@ -22,7 +22,7 @@
     "email": "admin@phpdark.com"
   },
   "require": {
-    "php": "^5.5 || ^7.0",
+    "php": "^7.2|^8.0|^8.1|^8.2",
     "ext-curl": "*"
   },
   "description": "This is Bangladeshi nagad payment gateway api development library. This can by used in your website, android or apple application ",
