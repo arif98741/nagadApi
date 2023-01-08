@@ -14,6 +14,7 @@ namespace Xenon\NagadApi;
 
 
 use Exception;
+use Xenon\NagadApi\Exception\NagadPaymentException;
 use Xenon\NagadApi\lib\Key;
 
 /**
@@ -65,10 +66,12 @@ class Base
      * Base constructor
      * @param $config
      * @param $params
+     * @throws NagadPaymentException
      * @since v1.3.2
      */
     public function __construct($config, $params)
     {
+        $this->checkParams($config, $params);
         $this->keyObject = new Key($config);
         $this->amount = $params['amount'];
         $this->invoice = $params['invoice'];
@@ -175,11 +178,36 @@ class Base
 
     /**
      * Verify Payment
+     * @throws Exception
      */
     public function verifyPayment($paymentRefId)
     {
         $url = $this->base_url . 'verify/payment/' . $paymentRefId;
         return Helper::HttpGet($url);
+    }
+
+    /**
+     * @throws NagadPaymentException
+     */
+    private function checkParams($config, $params)
+    {
+        if (!is_array($config)) {
+            throw new NagadPaymentException("Configuration should be array.");
+        }
+
+        if (!is_array($params)) {
+            throw new NagadPaymentException("Params should be array.");
+        }
+
+        if (!array_key_exists('amount', $params)) {
+            throw new NagadPaymentException("Array key amount missing. Check array format from readme file");
+        }
+        if (!array_key_exists('invoice', $params)) {
+            throw new NagadPaymentException("Array key invoice missing. Check array format from readme file");
+        }
+        if (!array_key_exists('merchantCallback', $params)) {
+            throw new NagadPaymentException("Array key merchantCallback missing. Check array format from readme file");
+        }
     }
 
 }
