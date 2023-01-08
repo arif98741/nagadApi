@@ -16,12 +16,14 @@ use Carbon\Carbon;
 use Exception;
 use Xenon\NagadApi\Exception\ExceptionHandler;
 
-/**
+/****
+ * ======================================================================================
  * This is the main performer that means request handler for entire nagadApi
  * This class is doing extraordinary job according to request type.
  * It also generates api response for viewing in monitor screen.
  * Class RequestHandler
  * @package NagadApi
+ * ==================================================================================
  */
 class RequestHandler
 {
@@ -105,7 +107,7 @@ class RequestHandler
         $this->initUrl = $postUrl;
 
         if (!is_array($resultData)) {
-            throw new ExceptionHandler("Failed to generate nagad payment url as it is returning null response. Please be confirm you have whitelisted your server ip or server fix other server related issue");
+            throw new ExceptionHandler("Failed to generate nagad payment url as it is returning null response from nagad api server. Please be confirm that you have whitelisted your server ip or fix other server ip related issue. Sometimes it happens if you take server from outside Bangladesh. Contact with Nagad authority for assistance with your support ticket id");
         }
 
         if (array_key_exists('error', $resultData)) {

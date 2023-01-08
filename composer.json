@@ -36,7 +36,11 @@
     "nagad payment gateway",
     "Bangladeshi payment gateway",
     "nagad php library",
-    "payment gateway"
+    "payment gateway",
+    "nagad php sdk",
+    "nagad php api",
+    "nagad sdk",
+    "nagad gateway"
   ],
   "minimum-stability": "stable",
   "require-dev": {
