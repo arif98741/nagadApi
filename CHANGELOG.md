@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.9.2.0](https://github.com/arif98741/nagadApi/releases/tag/v1.9.2.0) - 2023-01-08 07:35:21
+
+**Full Changelog**: https://github.com/arif98741/nagadApi/compare/v1.9.1.9...v1.9.2.0
+
 ## [v1.9.1.9](https://github.com/arif98741/nagadApi/releases/tag/v1.9.1.9) - 2023-01-08 07:04:36
 
 Keywords added, added more specified response message
