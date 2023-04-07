@@ -13,7 +13,6 @@ class FeatureTest extends TestCase
      */
     public function testTrueAssetsToTrue()
     {
-        $condition = true;
         $this->assertTrue(true);
     }
 

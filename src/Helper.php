@@ -14,7 +14,6 @@ namespace Xenon\NagadApi;
 
 
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
 use Xenon\NagadApi\Exception\ExceptionHandler;
 use Xenon\NagadApi\Exception\NagadPaymentException;
@@ -31,7 +30,6 @@ class Helper extends Key
      */
     public function __construct($config)
     {
-
         parent::__construct($config);
     }
 
@@ -43,7 +41,7 @@ class Helper extends Key
      * @return string
      * @since v1.3.1
      */
-    public static function generateRandomString(int $length = 40, string $prefix = '', string $suffix = '')
+    public static function generateRandomString(int $length = 40, string $prefix = '', string $suffix = ''): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -68,9 +66,8 @@ class Helper extends Key
      * @throws ExceptionHandler
      * @since v1.3.1
      */
-    function EncryptDataWithPublicKey($data)
+    public function encryptDataWithPublicKey($data): string
     {
-
         $publicKey = "-----BEGIN PUBLIC KEY-----\n" . $this->getPgPublicKey() . "\n-----END PUBLIC KEY-----";
         $keyResource = openssl_get_publickey($publicKey);
         $status = openssl_public_encrypt($data, $cryptoText, $keyResource);
@@ -88,7 +85,7 @@ class Helper extends Key
      * @throws ExceptionHandler
      * @since v1.3.1
      */
-    public function SignatureGenerate($data)
+    public function signatureGenerate($data): string
     {
         $privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" . $this->getMerchantPrivateKey() . "\n-----END RSA PRIVATE KEY-----";
         $status = openssl_sign($data, $signature, $privateKey, OPENSSL_ALGO_SHA256);
@@ -106,7 +103,7 @@ class Helper extends Key
      * @return array|mixed
      * @since v1.3.1
      */
-    public function HttpPostMethod(string $postUrl, array $postData)
+    public function httpPostMethod(string $postUrl, array $postData)
     {
         $url = curl_init($postUrl);
         $postToken = json_encode($postData);
@@ -133,7 +130,7 @@ class Helper extends Key
             ];
         }
 
-        $response = json_decode($resultData, true, 512);
+        $response = json_decode($resultData, true);
         curl_close($url);
         return $response;
 
@@ -146,7 +143,7 @@ class Helper extends Key
      * @return bool|string
      * @throws Exception
      */
-    public static function HttpGet($url)
+    public static function httpGet($url)
     {
         $ch = curl_init();
         $timeout = 10;
@@ -196,10 +193,10 @@ class Helper extends Key
 
     /**
      * @param $cryptoText
-     * @return mixed
+     * @return string
      * @since v1.3.1
      */
-    public function DecryptDataWithPrivateKey($cryptoText)
+    public function decryptDataWithPrivateKey($cryptoText)
     {
         $private_key = "-----BEGIN RSA PRIVATE KEY-----\n" . $this->getMerchantPrivateKey() . "\n-----END RSA PRIVATE KEY-----";
         openssl_private_decrypt(base64_decode($cryptoText), $plain_text, $private_key);
@@ -217,7 +214,7 @@ class Helper extends Key
      * @return string
      * @since v1.3.1
      */
-    public static function generateFakeInvoice($length = 20, $capitalize = false, $prefix = '', $suffix = '')
+    public static function generateFakeInvoice(int $length = 20, bool $capitalize = false, string $prefix = '', string $suffix = ''): string
     {
         $invoice = $prefix . self::generateRandomString($length) . $suffix;
         if ($capitalize === true) {
@@ -256,7 +253,7 @@ class Helper extends Key
      * @return array
      * @since v1.3.1
      */
-    public static function serverDetails()
+    public static function serverDetails(): array
     {
         return [
             'base' => $_SERVER['SERVER_ADDR'],
@@ -270,7 +267,7 @@ class Helper extends Key
     /**
      * This is for formatting and getting returning response data from url;
      * @param $response
-     * @return mixed
+     * @return array
      * @since v1.3.1
      */
     public static function successResponse($response)
@@ -297,7 +294,7 @@ class Helper extends Key
 
         $url = $this->base_url . 'verify/payment/' . $paymentRefId;
 
-        return self::HttpGet($url);
+        return self::httpGet($url);
     }
 
 }

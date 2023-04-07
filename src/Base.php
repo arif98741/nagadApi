@@ -120,7 +120,7 @@ class Base
      * @return string
      * @since v1.3.1
      */
-    public function getTimezone()
+    public function getTimezone(): string
     {
         return $this->timezone;
     }
@@ -170,7 +170,7 @@ class Base
      * @return string
      * @since v1.3.1
      */
-    public function getBaseUrl()
+    public function getBaseUrl(): string
     {
         return $this->base_url;
     }
@@ -183,7 +183,7 @@ class Base
     public function verifyPayment($paymentRefId)
     {
         $url = $this->base_url . 'verify/payment/' . $paymentRefId;
-        return Helper::HttpGet($url);
+        return Helper::httpGet($url);
     }
 
     /**
@@ -200,13 +200,13 @@ class Base
         }
 
         if (!array_key_exists('amount', $params)) {
-            throw new NagadPaymentException("Array key amount missing. Check array format from readme file");
+            throw new NagadPaymentException("Array key amount missing. Check configuration array format from github repository's readme.md file");
         }
         if (!array_key_exists('invoice', $params)) {
-            throw new NagadPaymentException("Array key invoice missing. Check array format from readme file");
+            throw new NagadPaymentException("Array key invoice missing. Check configuration array format from github repository's readme.md file");
         }
         if (!array_key_exists('merchantCallback', $params)) {
-            throw new NagadPaymentException("Array key merchantCallback missing. Check array format from readme file");
+            throw new NagadPaymentException("Array key merchantCallback missing. Check configuration array format from github repository's readme.md file");
         }
     }
 

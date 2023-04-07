@@ -77,7 +77,7 @@ class RequestHandler
 
 
         try {
-            $publicSignature = $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveData));
+            $publicSignature = $this->helper->encryptDataWithPublicKey(json_encode($sensitiveData));
         } catch (Exception $e) {
 
             throw new ExceptionHandler($e->getMessage());
@@ -85,7 +85,7 @@ class RequestHandler
         }
 
         try {
-            $signature = $this->helper->SignatureGenerate(json_encode($sensitiveData));
+            $signature = $this->helper->signatureGenerate(json_encode($sensitiveData));
         } catch (Exception $e) {
             throw new ExceptionHandler($e->getMessage());
 
@@ -98,10 +98,10 @@ class RequestHandler
             'signature' => $signature
         );
 
-        $resultData = $this->helper->HttpPostMethod($postUrl, $postData);
+        $resultData = $this->helper->httpPostMethod($postUrl, $postData);
 
         if (!is_array($resultData)) {
-            throw new ExceptionHandler("Failed to generate nagad payment url as it is returning null response from nagad api server. Please be confirm that you have whitelisted your server ip or fix other server ip related issue. Sometimes it happens if you take server from outside Bangladesh. Contact with Nagad authority for assistance with your support ticket id");
+            throw new ExceptionHandler("Failed to generate nagad payment url as it is returning null response from nagad api server. Please be confirm that you have whitelisted your server ip or fix other server ip related issue. Sometimes it happens if your hosting server is located outside Bangladesh. Contact with Nagad authority for assistance with your support ticket id");
         }
 
         if (array_key_exists('error', $resultData)) {
@@ -110,8 +110,7 @@ class RequestHandler
 
         if (array_key_exists('reason', $resultData)) {
 
-            throw new ExceptionHandler($resultData['reason'] . ', ' . $resultData['message']);
-
+            throw new ExceptionHandler( $resultData['message']);
         }
 
 
@@ -119,7 +118,7 @@ class RequestHandler
         if (array_key_exists('sensitiveData', $resultData) && array_key_exists('signature', $resultData)) {
 
             if (!empty($resultData['sensitiveData']) && !empty($resultData['signature'])) {
-                $plainResponse = json_decode($this->helper->DecryptDataWithPrivateKey($resultData['sensitiveData']), true);
+                $plainResponse = json_decode($this->helper->decryptDataWithPrivateKey($resultData['sensitiveData']), true);
                 if (isset($plainResponse['paymentReferenceId'], $plainResponse['challenge'])) {
 
                     $paymentReferenceId = $plainResponse['paymentReferenceId'];
@@ -134,15 +133,15 @@ class RequestHandler
                     );
 
                     $postDataOrder = array(
-                        'sensitiveData' => $this->helper->EncryptDataWithPublicKey(json_encode($sensitiveDataOrder)),
-                        'signature' => $this->helper->SignatureGenerate(json_encode($sensitiveDataOrder)),
+                        'sensitiveData' => $this->helper->encryptDataWithPublicKey(json_encode($sensitiveDataOrder)),
+                        'signature' => $this->helper->signatureGenerate(json_encode($sensitiveDataOrder)),
                         'merchantCallbackURL' => $this->base->merchantCallback,
 
                     );
                     $OrderSubmitUrl = $this->base->getBaseUrl() . "check-out/complete/"
                         . $paymentReferenceId;
 
-                    $resultDataOrder = $this->helper->HttpPostMethod($OrderSubmitUrl, $postDataOrder);
+                    $resultDataOrder = $this->helper->httpPostMethod($OrderSubmitUrl, $postDataOrder);
 
                     if (array_key_exists('status', $resultDataOrder)) {
 
