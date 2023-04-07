@@ -134,7 +134,7 @@ $response = $helper->verifyPayment($response['payment_ref_id']);
 
 ### Live Environment
 1. Need production details for production final. You will get through email
-2. Your server ip/domain should be whitelisted before running in production
+2. Your server ip/domain and callback url should be whitelisted before running in production. You can contact with nagad team using mail or other system
 
 Login to your **Nagad Merchant Panel**
 
@@ -151,6 +151,11 @@ Download the Merchant Private Key and Merchant Public Key.
 **Step 2:**
 _**_Go to Merchant Integration under Merchant Management Menu.
 Put your Call Back URL and Upload the Merchant Public Key which you have downloaded in Step 1. Add and Submit!**__
+
+**Step 3:**
+_**_Usage Production Details .
+You have to use public key and private key that you have downloaded!**__
+
 
 3. If you have any question/query then email me **arif98741@gmail.com**
 4. Do Code, Be Crazy
