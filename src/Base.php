@@ -175,17 +175,6 @@ class Base
         return $this->base_url;
     }
 
-
-    /**
-     * Verify Payment
-     * @throws Exception
-     */
-    public function verifyPayment($paymentRefId)
-    {
-        $url = $this->base_url . 'verify/payment/' . $paymentRefId;
-        return Helper::httpGet($url);
-    }
-
     /**
      * @throws NagadPaymentException
      */
