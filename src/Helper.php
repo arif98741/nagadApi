@@ -75,7 +75,7 @@ class Helper extends Key
             return base64_encode($cryptoText);
         }
 
-        throw new ExceptionHandler('Invalid Public key');
+        throw new ExceptionHandler('Invalid Public key.  Check Public Key in Configuration');
     }
 
     /**
@@ -94,7 +94,7 @@ class Helper extends Key
             return base64_encode($signature);
         }
 
-        throw new ExceptionHandler('Invalid private key');
+        throw new ExceptionHandler('Invalid private key. Check Private Key in Configuration');
     }
 
     /**
@@ -133,7 +133,6 @@ class Helper extends Key
         $response = json_decode($resultData, true);
         curl_close($url);
         return $response;
-
     }
 
 
