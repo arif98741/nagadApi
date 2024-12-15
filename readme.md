@@ -38,7 +38,6 @@ require 'vendor/autoload.php';
 $config = [
     'NAGAD_APP_ENV' => 'development', // development|production
     'NAGAD_APP_LOG' => '1',
-    'NAGAD_APP_ACCOUNT' => '016XXXXXXXX', //demo
     'NAGAD_APP_MERCHANTID' => '6800000025', //demo
     'NAGAD_APP_MERCHANT_PRIVATE_KEY' => 'MIIEvFAAxN1qfKiRiCL720FtQfIwPDp9ZqbG2OQbdyZUB8I08irKJ0x/psM4SjXasglHBK5G1DX7BmwcB/PRbC0cHYy3pXDmLI8pZl1NehLzbav0Y4fP4MdnpQnfzZJdpaGVE0oI15l',
     'NAGAD_APP_MERCHANT_PG_PUBLIC_KEY' => 'MIIBIjANBc54jjMJoP2toR9fGmQV7y9fzj',
