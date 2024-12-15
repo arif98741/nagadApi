@@ -74,7 +74,7 @@ class Key
         }
 
         $this->appEnv = $envData['NAGAD_APP_ENV'];
-        $this->appAccount = $envData['NAGAD_APP_ACCOUNT'];
+        //$this->appAccount = $envData['NAGAD_APP_ACCOUNT'];
         $this->appMerchantID = $envData['NAGAD_APP_MERCHANTID'];
         $this->merchantPrivateKey = $envData['NAGAD_APP_MERCHANT_PRIVATE_KEY'];
         $this->pgPublicKey = $envData['NAGAD_APP_MERCHANT_PG_PUBLIC_KEY'];
