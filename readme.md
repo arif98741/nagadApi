@@ -44,7 +44,7 @@ $config = [
     'NAGAD_APP_TIMEZONE' => 'Asia/Dhaka',
 ];
 
-$nagadObject = new Base($config, [
+$nagad = new Base($config, [
     'amount' => 10,
     'invoice' => Helper::generateFakeInvoice(15, true),
     'merchantCallback' => 'https://example.com/payment/success/id=4',
@@ -53,7 +53,7 @@ $nagadObject = new Base($config, [
 
 ## Method-1 **:** Use for website
 ```
-$status = $nagad->payNow($nagadObject); //will redirect to payment page
+$status = $nagad->payNow($nagad); //will redirect to payment page
 ```
 
 ## Method-2 **:** Return Redirection url . You can use this according to need 
