@@ -3,11 +3,12 @@ name: Check Composer Compatibility for PHP 8.0, 8.1, 8.2, 8.3, 8.4
 on:
   push:
     branches:
-      - php_version
+      - master
+      - dev
   pull_request:
     branches:
-      - php_version
-
+      - master
+      - dev
 jobs:
   check-php-versions:
     runs-on: ubuntu-latest
