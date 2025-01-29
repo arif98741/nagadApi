@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## [v1.9.3.0](https://github.com/arif98741/nagadApi/releases/tag/v1.9.3.0) - 2025-01-29 04:27:41
+
+## What's Changed
+* PHP Version Pipeline Check by @arif98741 in https://github.com/arif98741/nagadApi/pull/9
+* Merge Dev to Master by @arif98741 in https://github.com/arif98741/nagadApi/pull/10
+
+
+**Full Changelog**: https://github.com/arif98741/nagadApi/compare/v1.9.2.4...v1.9.3.0
+
+## [v1.9.2.4](https://github.com/arif98741/nagadApi/releases/tag/v1.9.2.4) - 2024-12-15 05:46:05
+
+**Full Changelog**: https://github.com/arif98741/nagadApi/compare/v1.9.2.3...v1.9.2.4
+
 ## [v1.9.2.3](https://github.com/arif98741/nagadApi/releases/tag/v1.9.2.3) - 2023-06-07 17:35:22
 
 **Full Changelog**: https://github.com/arif98741/nagadApi/compare/v1.9.2.2...v1.9.2.3
