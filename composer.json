@@ -25,7 +25,7 @@
     "php": "^7.4|^8.0",
     "ext-curl": "*",
     "ext-json": "*",
-    "nesbot/carbon": "^2.59",
+    "nesbot/carbon": "^2.59|^3.0",
     "ext-openssl": "*"
   },
   "description": "This is Bangladeshi nagad payment gateway api development library for php. This library can be used easily as pacakge dependency in your php application.",
