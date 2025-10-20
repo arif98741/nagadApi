@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v1.9.4.0](https://github.com/arif98741/nagadApi/releases/tag/v1.9.4.0) - 2025-01-29 04:30:42+00:00
+
+**Full Changelog**: https://github.com/arif98741/nagadApi/compare/v1.9.3.0...v1.9.4.0
+
 ## [v1.9.3.0](https://github.com/arif98741/nagadApi/releases/tag/v1.9.3.0) - 2025-01-29 04:27:41
 
 ## What's Changed
