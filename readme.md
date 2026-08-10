@@ -1,3 +1,5 @@
+
+
 <p><img alt="Nagad api php xenon nagad api" style="width: 400px; height: 300px;" src="https://github.com/arif98741/nagadApi/blob/master/file/nagad-logo.png"></p>
 
 # Xenon/NagadApi
@@ -16,6 +18,8 @@
 ```bash
 composer require xenon/nagad-api
 ```
+
+*Note: Requires PHP ^7.4|^8.0 and the `curl`, `json`, and `openssl` extensions.*
 
 
 
@@ -166,4 +170,3 @@ For can also add pull request. For pull request you should use **dev** branch. B
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
